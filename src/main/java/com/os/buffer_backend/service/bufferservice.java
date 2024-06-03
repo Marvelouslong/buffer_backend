@@ -1,2 +1,4 @@
-package com.os.buffer_backend.service;public interface bufferservice {
+package com.os.buffer_backend.service;
+
+public interface bufferservice {
 }
