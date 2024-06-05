@@ -9,5 +9,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-06-05 09:18:51
 */
 public interface ParamService extends IService<Param> {
+    Param getParams(Integer pId);
 
 }

@@ -14,7 +14,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
     implements ParamService{
+    public Param getParams(Integer pId){
+        Param param=new Param();
 
+        return param;
+    }
 }
 
 
