@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.os.buffer_backend.mapper.ParamMapper">
+
+    <resultMap id="BaseResultMap" type="com.os.buffer_backend.model.domain.Param">
+            <id property="pId" column="p_id" jdbcType="INTEGER"/>
+            <result property="buffer1size" column="buffer1Size" jdbcType="INTEGER"/>
+            <result property="buffer2size" column="buffer2Size" jdbcType="INTEGER"/>
+            <result property="buffer3size" column="buffer3Size" jdbcType="INTEGER"/>
+            <result property="putbuffer1num" column="putBuffer1Num" jdbcType="INTEGER"/>
+            <result property="movebuffer2num" column="moveBuffer2Num" jdbcType="INTEGER"/>
+            <result property="movebuffer3num" column="moveBuffer3Num" jdbcType="INTEGER"/>
+            <result property="getbuffer2num" column="getBuffer2Num" jdbcType="INTEGER"/>
+            <result property="getbuffer3num" column="getBuffer3Num" jdbcType="INTEGER"/>
+            <result property="putspeed" column="putSpeed" jdbcType="INTEGER"/>
+            <result property="movespeed" column="moveSpeed" jdbcType="INTEGER"/>
+            <result property="getspeed" column="getSpeed" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        p_id,buffer1Size,buffer2Size,
+        buffer3Size,putBuffer1Num,moveBuffer2Num,
+        moveBuffer3Num,getBuffer2Num,getBuffer3Num,
+        putSpeed,moveSpeed,getSpeed
+    </sql>
+</mapper>

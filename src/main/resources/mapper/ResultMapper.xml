@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.os.buffer_backend.mapper.ResultMapper">
+
+    <resultMap id="BaseResultMap" type="com.os.buffer_backend.model.domain.Result">
+            <id property="rsId" column="rs_id" jdbcType="INTEGER"/>
+            <result property="runtime" column="Runtime" jdbcType="VARCHAR"/>
+            <result property="bufferdatanum" column="BufferDataNum" jdbcType="INTEGER"/>
+            <result property="putinbuffernum" column="putInBufferNum" jdbcType="INTEGER"/>
+            <result property="getoutbuffernum" column="getOutBufferNum" jdbcType="INTEGER"/>
+            <result property="avgbuffernum" column="AvgBufferNum" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rs_id,Runtime,BufferDataNum,
+        putInBufferNum,getOutBufferNum,AvgBufferNum
+    </sql>
+</mapper>

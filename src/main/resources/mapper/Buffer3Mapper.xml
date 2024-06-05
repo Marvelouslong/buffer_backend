@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.os.buffer_backend.mapper.Buffer3Mapper">
+
+    <resultMap id="BaseResultMap" type="com.os.buffer_backend.model.domain.Buffer3">
+            <id property="buffer3Id" column="buffer3_id" jdbcType="INTEGER"/>
+            <result property="message" column="Message" jdbcType="VARCHAR"/>
+            <result property="data" column="Data" jdbcType="VARCHAR"/>
+            <result property="contentnum" column="ContentNum" jdbcType="INTEGER"/>
+            <result property="freespacenum" column="FreeSpaceNum" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        buffer3_id,Message,Data,
+        ContentNum,FreeSpaceNum
+    </sql>
+</mapper>
