@@ -1,12 +1,12 @@
 package com.os.buffer_backend.controller;
-
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
-import javax.print.DocFlavor;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/buffer")
@@ -15,13 +15,32 @@ import javax.print.DocFlavor;
 public class buffercontroller {
     @Resource
     private boolean userService;
-    @PostMapping("/getbuffer")
-    public boolean GetBuffer(HttpServletRequest request) {
-        boolean flag=false;
-        return flag;
+    @PostMapping("/componets/input.vue")
+    public ResultInfo getinput(@RequestBody Map<String,Object> params) {
+        System.out.println(params.get("bufisize"));
+        return new ResultInfo();
     }
-    @GetMapping("/get")
-    public boolean getbufferId(long id) {
+
+
+ /*
+        //System.out.println("Buffer1Size为"+Integer.valueOf(req.getParameter("buffer1Size")));
+        SetParamDao setParamDao = new SetParamDaoImpl();
+        setParamDao.setParam(setParam);
+
+
+        Param params = setParamDao.selectParamsById(1);
+
+        session.setAttribute("param", params);
+        ArrayList<BufferData> Buffer1DataList = setParamDao.queryBufferData(1);
+
+        session.setAttribute("buffer1List", Buffer1DataList);
+
+
+
+        res.sendRedirect("/MyOsProject/index.jsp");*/
+
+    @GetMapping("/total")
+    public boolean getbuffertotal(long id) {
         String buffer = null;
         boolean flag = false;
         if (id <= 0) {
@@ -31,5 +50,8 @@ public class buffercontroller {
             
         }
         return flag;
+    }
+
+    private class ResultInfo {
     }
 }
