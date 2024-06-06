@@ -18,9 +18,7 @@ import java.util.List;
 * @Entity generator.domain.Param
 */
 @Mapper
-
 public interface ParamMapper extends BaseMapper<Param> {
-
     @Select("select * from param where p_id=1")
     Param selectParamByPId();
     //@Insert("INSERT INTO buffer1 (`Message`,`DATA`,`ContentNum`,`FreeSpaceNum`) VALUES (?,?,?,?);")
@@ -37,8 +35,8 @@ public interface ParamMapper extends BaseMapper<Param> {
     @Select("SELECT COUNT(*) FROM buffer1")
     int isBuffer1Null();
     //得到BUFFER1的id
-    @Select("SELECT buffer1_id FROM buffer1 WHERE `Message`=#{message} AND `DATA`=#{data} AND`ContentNum`=#{contentNum} AND `FreeSpaceNum`=#{freeSpaceNum}")
-    public int getBuffer1Id(@org.apache.ibatis.annotations.Param("message") String message, @org.apache.ibatis.annotations.Param("data") String data, @org.apache.ibatis.annotations.Param("contentNum") Integer contentNum, @org.apache.ibatis.annotations.Param("freeSpaceNum") Integer freeSpaceNum);
+    @Select("SELECT LAST_INSERT_ID()")
+    public int getBuffer1Id();
 
 }
 

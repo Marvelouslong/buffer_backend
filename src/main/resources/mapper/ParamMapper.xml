@@ -5,7 +5,7 @@
 <mapper namespace="com.os.buffer_backend.mapper.ParamMapper">
 
     <resultMap id="BaseResultMap" type="com.os.buffer_backend.model.domain.Param">
-            <id property="pId" column="p_id" jdbcType="INTEGER"/>
+            <id property="p_id" column="p_id" jdbcType="INTEGER"/>
             <result property="buffer1size" column="buffer1Size" jdbcType="INTEGER"/>
             <result property="buffer2size" column="buffer2Size" jdbcType="INTEGER"/>
             <result property="buffer3size" column="buffer3Size" jdbcType="INTEGER"/>

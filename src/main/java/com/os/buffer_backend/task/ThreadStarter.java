@@ -25,6 +25,14 @@ public class ThreadStarter {
                 Common common = new Common(param);
                 new Thread(new PutBuffer(common,paramService)).start();
             }
+            for (int i = 0; i <param.getMovebuffer2num(); i++) {
+                Common common = new Common(param);
+                new Thread(new MoveOperation(paramService,common),"buffer2" + i).start();
+            }
+            for (int i = 0; i <param.getMovebuffer3num(); i++) {
+                Common common = new Common(param);
+                new Thread(new MoveOperation(paramService,common),"buffer3" + i).start();
+            }
         }
     }
 }

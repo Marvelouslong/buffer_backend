@@ -2,9 +2,8 @@ package com.os.buffer_backend.task;
 
 import java.util.ArrayList;
 import com.os.buffer_backend.model.domain.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
 @Component
 public class Common {
     public static int putBuffer1Num = 3;
@@ -21,9 +20,8 @@ public class Common {
     public static int moveSpeed = 40;
     public static int getSpeed = 40;
 
-
-    public int place = 0;
     public static int BlockedThreadNum = 0;
+    public static int MoveBlockedThreadNum = 0;
     public static boolean flag = true;
     public static boolean pause = false;
 
@@ -34,7 +32,7 @@ public class Common {
     public static long endTime;
 
 
-    public static ArrayList<Character> buffer1 = new ArrayList<>(); //buffer
+    public static ArrayList<String> buffer1 = new ArrayList<String>(); //buffer
     public static ArrayList<Character> buffer2 = new ArrayList<>();
     public static ArrayList<Character> buffer3 = new ArrayList<>();
 
@@ -82,12 +80,5 @@ public class Common {
     public static void  setCharBuffer(ArrayList<Character> charBuffer, char c) {
         charBuffer.add(c);
     }
-    public int getPlace() {
-        return place;
-    }
-    public void setPlace(int place) {
-        this.place = place;
-    }
-
 }
 
