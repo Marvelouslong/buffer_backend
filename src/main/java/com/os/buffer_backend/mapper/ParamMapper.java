@@ -19,12 +19,8 @@ import java.util.List;
 */
 @Mapper
 public interface ParamMapper extends BaseMapper<Param> {
-    @Select("select * from param where p_id=1")
-    Param selectParamByPId();
-    //@Insert("INSERT INTO buffer1 (`Message`,`DATA`,`ContentNum`,`FreeSpaceNum`) VALUES (?,?,?,?);")
-    @Insert("INSERT INTO buffer1 (`Message`,`DATA`,`ContentNum`,`FreeSpaceNum`) VALUES (#{message},#{data},#{contentNum},#{freeSpaceNum})")
-    void insertBuffer1(@org.apache.ibatis.annotations.Param("message") String message, @org.apache.ibatis.annotations.Param("data") String data, @org.apache.ibatis.annotations.Param("contentNum") Integer contentNum, @org.apache.ibatis.annotations.Param("freeSpaceNum") Integer freeSpaceNum);
-
+    @Select("select * from param where p_id=#{id}")
+    Param selectParamByPId(int id);
     //void insertBuffer1(String message1,String data,Integer contentNum,Integer freeSpaceNum);
     @Select("SELECT * FROM buffer1 WHERE data = "+"?")
     Buffer1 selectByDataValue(String dataValue);
@@ -34,10 +30,12 @@ public interface ParamMapper extends BaseMapper<Param> {
     //判断BUFFER1是否为空
     @Select("SELECT COUNT(*) FROM buffer1")
     int isBuffer1Null();
-    //得到BUFFER1的id
+    @Insert("INSERT INTO param (buffer1Size, buffer2Size, buffer3Size, putBuffer1Num, moveBuffer2Num, moveBuffer3Num, getBuffer2Num, getBuffer3Num, putSpeed, moveSpeed, getSpeed) VALUES (#{buffer1size}, #{buffer2size}, #{buffer3size}, #{putbuffer1num}, #{movebuffer2num}, #{movebuffer3num},#{getbuffer2num}, #{getbuffer3num}, #{putspeed}, #{movespeed}, #{getspeed})")
+    void insertparam(@org.apache.ibatis.annotations.Param("buffer1size") Integer buffer1size, @org.apache.ibatis.annotations.Param("buffer2size") Integer buffer2size, @org.apache.ibatis.annotations.Param("buffer3size") Integer buffer3size, @org.apache.ibatis.annotations.Param("putbuffer1num") Integer putbuffer1num,
+                     @org.apache.ibatis.annotations.Param("movebuffer2num") Integer movebuffer2num, @org.apache.ibatis.annotations.Param("movebuffer3num") Integer movebuffer3num, @org.apache.ibatis.annotations.Param("getbuffer2num") Integer getbuffer2num, @org.apache.ibatis.annotations.Param("getbuffer3num") Integer getbuffer3num,
+                     @org.apache.ibatis.annotations.Param("putspeed") Integer putspeed, @org.apache.ibatis.annotations.Param("movespeed") Integer movespeed, @org.apache.ibatis.annotations.Param("getspeed") Integer getspeed);
     @Select("SELECT LAST_INSERT_ID()")
-    public int getBuffer1Id();
-
+    int getParamId();
 }
 
 

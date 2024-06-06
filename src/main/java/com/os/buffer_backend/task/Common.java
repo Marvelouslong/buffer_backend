@@ -22,6 +22,10 @@ public class Common {
 
     public static int BlockedThreadNum = 0;
     public static int MoveBlockedThreadNum = 0;
+    public static int p_id = 1;
+    public static int buffer1_id = 1;
+    public static int buffer2_id = 1;
+    public static int buffer3_id = 1;
     public static boolean flag = true;
     public static boolean pause = false;
 
@@ -35,9 +39,15 @@ public class Common {
     public static ArrayList<String> buffer1 = new ArrayList<String>(); //buffer
     public static ArrayList<Character> buffer2 = new ArrayList<>();
     public static ArrayList<Character> buffer3 = new ArrayList<>();
-
     public Common(){
 
+    }
+
+    public Common(Integer p_id,Integer buffer1_id,Integer buffer2_id,Integer buffer3_id){
+        this.p_id=p_id;
+        this.buffer1_id=buffer1_id;
+        this.buffer2_id=buffer2_id;
+        this.buffer3_id=buffer3_id;
     }
     //@Autowired
     public Common(Param param){

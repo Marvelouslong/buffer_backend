@@ -1,10 +1,17 @@
 package com.os.buffer_backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.os.buffer_backend.mapper.Buffer1Mapper;
+import com.os.buffer_backend.mapper.Buffer2Mapper;
+import com.os.buffer_backend.mapper.Buffer3Mapper;
 import com.os.buffer_backend.model.domain.Buffer1;
 import com.os.buffer_backend.model.domain.Param;
+import com.os.buffer_backend.service.Buffer1Service;
+import com.os.buffer_backend.service.Buffer2Service;
+import com.os.buffer_backend.service.Buffer3Service;
 import com.os.buffer_backend.service.ParamService;
 import com.os.buffer_backend.mapper.ParamMapper;
+import com.os.buffer_backend.task.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,18 +26,19 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
     implements ParamService{
     @Autowired
     private ParamMapper paramMapper;
-    public Param getParams(Integer pId){
-        Param param=new Param();
-
-        return param;
-    }
-
+    @Autowired
+    private Buffer1Mapper buffer1Mapper;
+    @Autowired
+    private Buffer2Mapper buffer2Mapper;
+    @Autowired
+    private Buffer3Mapper buffer3Mapper;
     @Transactional(rollbackFor = Exception.class)
     public Param readParmById(){
         //Integer paramId=1;
         //System.out.println(paramId);
         //Param p=
-        Param pm = paramMapper.selectParamByPId();
+        Common common=new Common();
+        Param pm = paramMapper.selectParamByPId(common.p_id);
         if (pm != null) {
             System.out.println("从数据库里取Param:  "+pm);
             return pm;
@@ -47,7 +55,7 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
             Integer contentNum=buffer1.getContentnum();
             Integer freeSpaceNum=buffer1.getFreespacenum();
 
-            paramMapper.insertBuffer1(message,data,contentNum,freeSpaceNum);
+//            paramMapper.insertBuffer1(message,data,contentNum,freeSpaceNum);
             System.out.println(message);
             return true;
         }
@@ -75,6 +83,21 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void register(Integer buffer1size, Integer buffer2size, Integer buffer3size, Integer putbuffer1num, Integer movebuffer2num, Integer movebuffer3num, Integer getbuffer2num, Integer getbuffer3num, Integer putspeed, Integer movespeed, Integer getspeed) {
+        Param param=new Param();
+        paramMapper.insertparam(buffer1size,buffer2size,buffer3size,putbuffer1num,movebuffer2num,movebuffer3num,
+                getbuffer2num,getbuffer3num,putspeed,movespeed,getspeed);
+        Integer p_id=paramMapper.getParamId();
+        buffer1Mapper.insertBuffer1(buffer1size);
+        Integer buffer1_id=buffer1Mapper.getBuffer1Id();
+        buffer2Mapper.insertBuffer2(buffer2size);
+        Integer buffer2_id=buffer2Mapper.getBuffer2Id();
+        buffer3Mapper.insertBuffer3(buffer3size);
+        Integer buffer3_id=buffer3Mapper.getBuffer3Id();
+        Common common=new Common(p_id,buffer1_id,buffer2_id,buffer3_id);
     }
 
 }

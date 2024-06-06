@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ParamService extends IService<Param> {
-    Param getParams(Integer pId);
-
     Param readParmById();
     //public boolean insertBuffer1s(String message,String data,Integer contentNum,Integer freeSpaceNum);
     public boolean insertBuffer1s(Buffer1 buf1);
     public void selectBuffer1ByData();
     public void updateBuffer1Values(String str,int id);
     public boolean isOrNotBuffer1Null();
-
+    public void register(Integer buffer1size,Integer buffer2size,Integer buffer3size,Integer putbuffer1num,
+                         Integer movebuffer2num,Integer movebuffer3num,Integer getbuffer2num,Integer getbuffer3num,
+                         Integer putspeed,Integer movespeed,Integer getspeed);
 }

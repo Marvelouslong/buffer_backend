@@ -1,16 +1,10 @@
 package com.os.buffer_backend.task;
 
 import com.os.buffer_backend.model.domain.Buffer1;
-import com.os.buffer_backend.model.domain.Param;
 import com.os.buffer_backend.service.ParamService;
 import com.os.buffer_backend.util.RandomData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class PutBuffer implements Runnable{
@@ -42,7 +36,7 @@ public class PutBuffer implements Runnable{
                         e.printStackTrace();
                     }
                 }
-                char randomChar = RandomData.getRandomChar();// 生成随机字符
+                String randomChar = RandomData.generateRandomString();// 生成随机字符
                 System.out.println(randomChar);
                 Common.buffer1.add(randomChar);// 将字符添加到缓冲区
                 Common.putInBufferNum++;// 增加已经放入缓冲区的字符数
