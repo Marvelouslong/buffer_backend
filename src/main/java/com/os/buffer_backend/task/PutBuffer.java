@@ -1,10 +1,16 @@
 package com.os.buffer_backend.task;
 
 import com.os.buffer_backend.model.domain.Buffer1;
+import com.os.buffer_backend.model.domain.Param;
 import com.os.buffer_backend.service.ParamService;
 import com.os.buffer_backend.util.RandomData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PutBuffer implements Runnable{
@@ -42,25 +48,26 @@ public class PutBuffer implements Runnable{
                 Common.putInBufferNum++;// 增加已经放入缓冲区的字符数
 
                 if (!Common.buffer1.isEmpty()) { // 确保缓冲区中有数据
-                    String data= String.valueOf(randomChar);
-                    String message;
+                    System.out.println(Common.buffer1);
+                    String data= randomChar;
+                    //String message="move"+data;
                     //如果Buffer1里是空,直接赋值！
-                    if(!(paramService.isOrNotBuffer1Null())){
+                    /*if(!(paramService.isOrNotBuffer1Null())){
                         Buffer1 buf1 = new Buffer1();
                         //直接赋初值
                         Integer contentnum=1;
                         Integer freespacenum=4;
-                        message="buffer1";
+                        message="move"+data;
                         buf1.setData(data);
                         buf1.setMessage(message);
                         buf1.setContentnum(contentnum);
                         buf1.setFreespacenum(freespacenum);
                         paramService.insertBuffer1s(buf1);
-                    }else {
-                        //data=paramService.getPreDataAndId();
-                        //paramService.updateBuffer1Values();
+                    }else {*/
+                        int id=Common.buffer1_id;
+                        paramService.updateBuffer1Values(data,id);
                         System.out.println("数据库非空！");
-                    }
+                    //}
                     /*System.out.println("data:"+data);
                     System.out.println("contentNum:"+contentnum);
                     System.out.println("free:"+freespacenum);
