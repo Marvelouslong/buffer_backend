@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+
 import java.util.List;
 
 /**
@@ -17,18 +18,22 @@ import java.util.List;
 * @Entity generator.domain.Param
 */
 @Mapper
+
 public interface ParamMapper extends BaseMapper<Param> {
 
     @Select("select * from param where p_id=1")
     Param selectParamByPId();
-    @Insert("INSERT into buffer1 (Message,Data,ContentNum,FreeSpaceNum) values(?,?,?,?)")
-    void insertBuffer1(String message,String data,Integer contentNum,Integer freeSpaceNum);
+    //@Insert("INSERT INTO buffer1 (`Message`,`DATA`,`ContentNum`,`FreeSpaceNum`) VALUES (?,?,?,?);")
+    @Insert("INSERT INTO buffer1 (`Message`,`DATA`,`ContentNum`,`FreeSpaceNum`) VALUES (#{message},#{data},#{contentNum},#{freeSpaceNum})")
+    void insertBuffer1(@org.apache.ibatis.annotations.Param("message") String message, @org.apache.ibatis.annotations.Param("data") String data, @org.apache.ibatis.annotations.Param("contentNum") Integer contentNum, @org.apache.ibatis.annotations.Param("freeSpaceNum") Integer freeSpaceNum);
+
+    //void insertBuffer1(String message1,String data,Integer contentNum,Integer freeSpaceNum);
     @Select("SELECT * FROM buffer1 WHERE data = "+"?")
     Buffer1 selectByDataValue(String dataValue);
     @Update("UPDATE buffer1 SET Message = CONCAT(Message, ';Remove ', #{str}) WHERE buffer1_id = #{id}")
     void updateBuffer1(String str,int id);
-    @Select("SELECT * FROM buffer1")
-    boolean isBuffer1Null();
+    @Select("SELECT COUNT(*) FROM buffer1")
+    int isBuffer1Null();
 
 }
 

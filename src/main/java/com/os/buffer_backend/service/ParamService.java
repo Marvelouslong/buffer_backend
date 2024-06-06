@@ -16,8 +16,8 @@ public interface ParamService extends IService<Param> {
     Param getParams(Integer pId);
 
     Param readParmById();
-    public boolean insertBuffer1s(String message,String data,Integer contentNum,Integer freeSpaceNum);
-    //public boolean insertBuffer1s(Buffer1 buf1);
+    //public boolean insertBuffer1s(String message,String data,Integer contentNum,Integer freeSpaceNum);
+    public boolean insertBuffer1s(Buffer1 buf1);
     public void selectBuffer1ByData();
     public void updateBuffer1Values(String str,int id);
     public boolean isOrNotBuffer1Null();
