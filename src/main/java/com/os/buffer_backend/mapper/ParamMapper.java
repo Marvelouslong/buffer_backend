@@ -30,10 +30,15 @@ public interface ParamMapper extends BaseMapper<Param> {
     //void insertBuffer1(String message1,String data,Integer contentNum,Integer freeSpaceNum);
     @Select("SELECT * FROM buffer1 WHERE data = "+"?")
     Buffer1 selectByDataValue(String dataValue);
+    //更新
     @Update("UPDATE buffer1 SET Message = CONCAT(Message, ';Remove ', #{str}) WHERE buffer1_id = #{id}")
     void updateBuffer1(String str,int id);
+    //判断BUFFER1是否为空
     @Select("SELECT COUNT(*) FROM buffer1")
     int isBuffer1Null();
+    //得到BUFFER1的id
+    @Select("SELECT buffer1_id FROM buffer1 WHERE `Message`=#{message} AND `DATA`=#{data} AND`ContentNum`=#{contentNum} AND `FreeSpaceNum`=#{freeSpaceNum}")
+    public int getBuffer1Id(@org.apache.ibatis.annotations.Param("message") String message, @org.apache.ibatis.annotations.Param("data") String data, @org.apache.ibatis.annotations.Param("contentNum") Integer contentNum, @org.apache.ibatis.annotations.Param("freeSpaceNum") Integer freeSpaceNum);
 
 }
 

@@ -62,7 +62,6 @@ public class PutBuffer implements Runnable{
                         buf1.setContentnum(contentnum);
                         buf1.setFreespacenum(freespacenum);
                         paramService.insertBuffer1s(buf1);
-
                     }else {
                         //data=paramService.getPreDataAndId();
                         //paramService.updateBuffer1Values();
