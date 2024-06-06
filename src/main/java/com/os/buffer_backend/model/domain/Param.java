@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 /**
  * 
@@ -13,12 +14,14 @@ import lombok.Data;
  */
 @TableName(value ="param")
 @Data
+
+
 public class Param implements Serializable {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
-    private Integer pId;
+    private Integer p_id;
 
     /**
      * 
@@ -84,7 +87,7 @@ public class Param implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", pId=").append(pId);
+        sb.append(", pId=").append(p_id);
         sb.append(", buffer1size=").append(buffer1size);
         sb.append(", buffer2size=").append(buffer2size);
         sb.append(", buffer3size=").append(buffer3size);

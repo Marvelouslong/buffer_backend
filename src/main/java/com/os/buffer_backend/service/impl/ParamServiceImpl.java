@@ -38,10 +38,17 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
         return null;
     }
     @Transactional(rollbackFor = Exception.class)
-    public boolean insertBuffer1s(String message,String data,Integer contentNum,Integer freeSpaceNum){
-        if(message!=null&data!=null&contentNum!=null&freeSpaceNum!=null){
-            System.out.println("insert:  "+message+data+contentNum+freeSpaceNum);
+    public boolean insertBuffer1s(Buffer1 buffer1){
+        if(buffer1!=null){
+            //System.out.println("insert:  "+message+data+contentNum+freeSpaceNum);
+            System.out.println("INSERT............");
+            String message=buffer1.getMessage();
+            String data=buffer1.getData();
+            Integer contentNum=buffer1.getContentnum();
+            Integer freeSpaceNum=buffer1.getFreespacenum();
+
             paramMapper.insertBuffer1(message,data,contentNum,freeSpaceNum);
+            System.out.println(message);
             return true;
         }
         /*String message=buf1.getMessage();
@@ -62,8 +69,9 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
         System.out.println("更新中！");
     }
     //判断表Buffer1是否为空
+    @Transactional(rollbackFor = Exception.class)
     public boolean isOrNotBuffer1Null(){
-        if(paramMapper.isBuffer1Null()){
+        if(paramMapper.isBuffer1Null()>0){
             return true;
         }
         return false;

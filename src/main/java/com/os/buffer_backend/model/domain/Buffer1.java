@@ -18,7 +18,7 @@ public class Buffer1 implements Serializable {
      * 
      */
     @TableId(type = IdType.AUTO)
-    private Integer buffer1Id;
+    private Integer buffer1_id;
 
     /**
      * 
@@ -55,7 +55,7 @@ public class Buffer1 implements Serializable {
             return false;
         }
         Buffer1 other = (Buffer1) that;
-        return (this.getBuffer1Id() == null ? other.getBuffer1Id() == null : this.getBuffer1Id().equals(other.getBuffer1Id()))
+        return (this.getBuffer1_id() == null ? other.getBuffer1_id() == null : this.getBuffer1_id().equals(other.getBuffer1_id()))
             && (this.getMessage() == null ? other.getMessage() == null : this.getMessage().equals(other.getMessage()))
             && (this.getData() == null ? other.getData() == null : this.getData().equals(other.getData()))
             && (this.getContentnum() == null ? other.getContentnum() == null : this.getContentnum().equals(other.getContentnum()))
@@ -66,7 +66,7 @@ public class Buffer1 implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getBuffer1Id() == null) ? 0 : getBuffer1Id().hashCode());
+        result = prime * result + ((getBuffer1_id() == null) ? 0 : getBuffer1_id().hashCode());
         result = prime * result + ((getMessage() == null) ? 0 : getMessage().hashCode());
         result = prime * result + ((getData() == null) ? 0 : getData().hashCode());
         result = prime * result + ((getContentnum() == null) ? 0 : getContentnum().hashCode());
@@ -80,7 +80,7 @@ public class Buffer1 implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", buffer1Id=").append(buffer1Id);
+        sb.append(", buffer1Id=").append(buffer1_id);
         sb.append(", message=").append(message);
         sb.append(", data=").append(data);
         sb.append(", contentnum=").append(contentnum);
