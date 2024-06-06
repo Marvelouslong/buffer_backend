@@ -5,7 +5,7 @@
 <mapper namespace="com.os.buffer_backend.mapper.Buffer3Mapper">
 
     <resultMap id="BaseResultMap" type="com.os.buffer_backend.model.domain.Buffer3">
-            <id property="buffer3Id" column="buffer3_id" jdbcType="INTEGER"/>
+            <id property="buffer3_id" column="buffer3_id" jdbcType="INTEGER"/>
             <result property="message" column="Message" jdbcType="VARCHAR"/>
             <result property="data" column="Data" jdbcType="VARCHAR"/>
             <result property="contentnum" column="ContentNum" jdbcType="INTEGER"/>
