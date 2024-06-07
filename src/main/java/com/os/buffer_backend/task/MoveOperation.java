@@ -64,10 +64,9 @@ public class MoveOperation implements Runnable{
                         }
                         //buffer1移出
                         tmpdata = buffer1Service.removestr(common.buffer1_id);
-                        //todo 已取出的数据+1
                         //buffer2移入
                         buffer2Service.removeInstr(common.buffer2_id,tmpdata);
-                        //todo 已移入的数据+1
+                        resultService.updatebuffer2result(common.rs_id);
                         try {
 
                             Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
@@ -90,10 +89,9 @@ public class MoveOperation implements Runnable{
                         }
                         //buffer1移出
                         tmpdata = buffer1Service.removestr(common.buffer1_id);
-                        //todo 已取出的数据+1
                         //buffer3移入
                         buffer3Service.removeInstr(common.buffer3_id,tmpdata);
-                        //todo 已移入的数据+1
+                        resultService.updatebuffer3result(common.rs_id);
                         try {
                             Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
                             Common.buffer3.notify();

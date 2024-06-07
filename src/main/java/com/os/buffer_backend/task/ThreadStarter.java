@@ -1,7 +1,6 @@
 package com.os.buffer_backend.task;
 
 import com.os.buffer_backend.model.domain.Param;
-import com.os.buffer_backend.model.domain.Result;
 import com.os.buffer_backend.service.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,16 +1,13 @@
 package com.os.buffer_backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.os.buffer_backend.mapper.Buffer1Mapper;
-import com.os.buffer_backend.mapper.Buffer2Mapper;
-import com.os.buffer_backend.mapper.Buffer3Mapper;
+import com.os.buffer_backend.mapper.*;
 import com.os.buffer_backend.model.domain.Buffer1;
 import com.os.buffer_backend.model.domain.Param;
 import com.os.buffer_backend.service.Buffer1Service;
 import com.os.buffer_backend.service.Buffer2Service;
 import com.os.buffer_backend.service.Buffer3Service;
 import com.os.buffer_backend.service.ParamService;
-import com.os.buffer_backend.mapper.ParamMapper;
 import com.os.buffer_backend.task.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +29,8 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
     private Buffer2Mapper buffer2Mapper;
     @Autowired
     private Buffer3Mapper buffer3Mapper;
+    @Autowired
+    private ResultMapper resultMapper;
     @Transactional(rollbackFor = Exception.class)
     public Param readParmById(){
         //Integer paramId=1;
@@ -97,7 +96,9 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
         Integer buffer2_id=buffer2Mapper.getBuffer2Id();
         buffer3Mapper.insertBuffer3(buffer3size);
         Integer buffer3_id=buffer3Mapper.getBuffer3Id();
-        Common common=new Common(p_id,buffer1_id,buffer2_id,buffer3_id);
+        resultMapper.init();
+        Integer rs_id=resultMapper.getresultId();
+        Common common=new Common(p_id,buffer1_id,buffer2_id,buffer3_id,rs_id);
     }
 
 }

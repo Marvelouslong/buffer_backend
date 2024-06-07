@@ -26,6 +26,7 @@ public class Common {
     public static int buffer1_id = 1;
     public static int buffer2_id = 1;
     public static int buffer3_id = 1;
+    public static int rs_id = 1;
     public static boolean flag = true;
     public static boolean pause = false;
 
@@ -43,11 +44,12 @@ public class Common {
 
     }
 
-    public Common(Integer p_id,Integer buffer1_id,Integer buffer2_id,Integer buffer3_id){
+    public Common(Integer p_id,Integer buffer1_id,Integer buffer2_id,Integer buffer3_id,Integer rs_id){
         this.p_id=p_id;
         this.buffer1_id=buffer1_id;
         this.buffer2_id=buffer2_id;
         this.buffer3_id=buffer3_id;
+        this.rs_id=rs_id;
     }
     //@Autowired
     public Common(Param param){

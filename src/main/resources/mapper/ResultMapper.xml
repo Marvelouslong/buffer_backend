@@ -5,16 +5,20 @@
 <mapper namespace="com.os.buffer_backend.mapper.ResultMapper">
 
     <resultMap id="BaseResultMap" type="com.os.buffer_backend.model.domain.Result">
-            <id property="rsId" column="rs_id" jdbcType="INTEGER"/>
+            <id property="rs_id" column="rs_id" jdbcType="INTEGER"/>
             <result property="runtime" column="Runtime" jdbcType="VARCHAR"/>
-            <result property="bufferdatanum" column="BufferDataNum" jdbcType="INTEGER"/>
-            <result property="putinbuffernum" column="putInBufferNum" jdbcType="INTEGER"/>
-            <result property="getoutbuffernum" column="getOutBufferNum" jdbcType="INTEGER"/>
+            <result property="putbuffer1num" column="putBuffer1Num" jdbcType="INTEGER"/>
+            <result property="putbuffer2num" column="putBuffer2Num" jdbcType="INTEGER"/>
+            <result property="putbuffer3num" column="putBuffer3Num" jdbcType="INTEGER"/>
+            <result property="getbuffer1num" column="getBuffer1Num" jdbcType="INTEGER"/>
+            <result property="getbuffer2num" column="getBuffer2Num" jdbcType="INTEGER"/>
+            <result property="getbuffer3num" column="getBuffer3Num" jdbcType="INTEGER"/>
             <result property="avgbuffernum" column="AvgBufferNum" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        rs_id,Runtime,BufferDataNum,
-        putInBufferNum,getOutBufferNum,AvgBufferNum
+        rs_id,Runtime,putBuffer1Num,
+        putBuffer2Num,putBuffer3Num,getBuffer1Num,
+        getBuffer2Num,getBuffer3Num,AvgBufferNum
     </sql>
 </mapper>

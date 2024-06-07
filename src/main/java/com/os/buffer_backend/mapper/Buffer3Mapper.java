@@ -2,10 +2,8 @@ package com.os.buffer_backend.mapper;
 
 import com.os.buffer_backend.model.domain.Buffer3;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+import org.springframework.jmx.export.annotation.ManagedNotification;
 
 /**
 * @author HAN
@@ -13,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 * @createDate 2024-06-05 09:18:10
 * @Entity generator.domain.Buffer3
 */
+@Mapper
 public interface Buffer3Mapper extends BaseMapper<Buffer3> {
     @Insert("INSERT INTO buffer3 (`Message`,`DATA`,`ContentNum`,`FreeSpaceNum`) VALUES (null,null,0,#{freeSpaceNum})")
     void insertBuffer3(@org.apache.ibatis.annotations.Param("freeSpaceNum") Integer freeSpaceNum);
