@@ -7,6 +7,7 @@ import com.os.buffer_backend.model.domain.Buffer2;
 import com.os.buffer_backend.service.Buffer2Service;
 import com.os.buffer_backend.mapper.Buffer2Mapper;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,17 +18,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class Buffer2ServiceImpl extends ServiceImpl<Buffer2Mapper, Buffer2>
     implements Buffer2Service{
-    @Resource
+    @Autowired
     private Buffer2Mapper buffer2Mapper;
     @Override
-    public String removeIn10str(Integer buffer2_id) {
-        return null;
-    }
-
-    @Override
-    public Buffer2 getbuffer2(Integer buffer2_id) {
-        Buffer2 buffer2 = buffer2Mapper.getbuffer2(buffer2_id);
-        return buffer2;
+    public void removeInstr(Integer buffer2_id,String data) {
+        buffer2Mapper.updateMessage(buffer2_id,data);
+        buffer2Mapper.updateNum(buffer2_id);
+        buffer2Mapper.updateData(buffer2_id,data);
     }
 }
 

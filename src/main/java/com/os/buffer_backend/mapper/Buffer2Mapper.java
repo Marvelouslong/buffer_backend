@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
 * @author HAN
@@ -14,12 +15,16 @@ import org.apache.ibatis.annotations.Select;
 * @Entity generator.domain.Buffer2
 */
 public interface Buffer2Mapper extends BaseMapper<Buffer2> {
-    @Select("SELECT * FROM buffer2 WHERE buffer2_id=#{id}")
-    Buffer2 getbuffer2(@Param("id") Integer buffer2_id);
     @Insert("INSERT INTO buffer2 (`Message`,`DATA`,`ContentNum`,`FreeSpaceNum`) VALUES (null,null,0,#{freeSpaceNum})")
     void insertBuffer2(@org.apache.ibatis.annotations.Param("freeSpaceNum") Integer freeSpaceNum);
     @Select("SELECT LAST_INSERT_ID()")
     int getBuffer2Id();
+    @Update("UPDATE buffer2 SET ContentNum = ContentNum + 1, FreeSpaceNum = FreeSpaceNum - 1 WHERE buffer2_id = #{id}")
+    void updateNum(@org.apache.ibatis.annotations.Param("id") Integer id);
+    @Update("UPDATE buffer2 SET Message = CONCAT(IFNULL(Message, ''), ';RemoveIn ', #{str}) WHERE buffer2_id = #{id}")
+    void updateMessage(@Param("id") Integer buffer2_id, @Param("str") String str);
+    @Update("UPDATE buffer2 SET `Data` = CONCAT(IFNULL(`Data`, ''), #{str}) WHERE buffer2_id = #{id}")
+    void updateData(@Param("id") Integer buffer2_id, @Param("str") String str);
 }
 
 

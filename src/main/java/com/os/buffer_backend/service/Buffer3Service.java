@@ -9,5 +9,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-06-05 09:18:10
 */
 public interface Buffer3Service extends IService<Buffer3> {
-
+    void removeInstr(Integer buffer2_id,String data);
 }

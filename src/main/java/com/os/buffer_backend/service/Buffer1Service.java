@@ -9,6 +9,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-06-05 08:50:08
 */
 public interface Buffer1Service extends IService<Buffer1> {
-    String remove10str(Integer buffer1_id);
-    Buffer1 getbuffer1(Integer buffer1_id);
+    String removestr(Integer buffer1_id);
 }
