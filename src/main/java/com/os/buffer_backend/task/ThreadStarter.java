@@ -31,13 +31,21 @@ public class ThreadStarter {
         if (param != null) {
             Common common = new Common(param);
             for (int i = 0; i <param.getPutbuffer1num(); i++) {
-                new Thread(new PutBuffer(common,paramService)).start();
+                new Thread(new PutBuffer(common,paramService,resultService)).start();
             }
             for (int i = 0; i <param.getMovebuffer2num(); i++) {
                 new Thread(new MoveOperation(paramService,common,buffer1Service,buffer2Service,buffer3Service,resultService),"buffer2" + i).start();
             }
             for (int i = 0; i <param.getMovebuffer3num(); i++) {
                 new Thread(new MoveOperation(paramService,common,buffer1Service,buffer2Service,buffer3Service,resultService),"buffer3" + i).start();
+            }
+            for(int i=0;i<param.getGetbuffer2num();i++) {
+                System.out.println("buffer2Num: "+param.getGetbuffer2num());
+                new Thread(new GetBuffer(paramService,common,buffer1Service,buffer2Service,buffer3Service),"buffer2"+i).start();
+            }
+            for(int i=0;i<param.getGetbuffer3num();i++) {
+                System.out.println("buffer3Num: "+param.getGetbuffer3num());
+                new Thread(new GetBuffer(paramService,common,buffer1Service,buffer2Service,buffer3Service),"buffer3"+i).start();
             }
         }
     }

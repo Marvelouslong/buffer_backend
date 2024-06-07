@@ -19,10 +19,20 @@ public interface Buffer2Mapper extends BaseMapper<Buffer2> {
     int getBuffer2Id();
     @Update("UPDATE buffer2 SET ContentNum = ContentNum + 1, FreeSpaceNum = FreeSpaceNum - 1 WHERE buffer2_id = #{id}")
     void updateNum(@org.apache.ibatis.annotations.Param("id") Integer id);
-    @Update("UPDATE buffer2 SET Message = CONCAT(IFNULL(Message, ''), ';RemoveIn ', #{str}) WHERE buffer2_id = #{id}")
+    @Update("UPDATE buffer2 SET Message = CONCAT(IFNULL(Message, ''), ';Move', #{str}) WHERE buffer2_id = #{id}")
     void updateMessage(@Param("id") Integer buffer2_id, @Param("str") String str);
     @Update("UPDATE buffer2 SET `Data` = CONCAT(IFNULL(`Data`, ''), #{str}) WHERE buffer2_id = #{id}")
     void updateData(@Param("id") Integer buffer2_id, @Param("str") String str);
+    @Select("SELECT * FROM buffer2 WHERE buffer2_id = 1")
+    Buffer2 selectBuffer2ById(@Param("buffer2Id") Integer buffer2Id);
+    //将要取走的数据保存到first_10_characters
+    @Select("SELECT SUBSTRING(Data,1,1) AS first_10_characters FROM buffer2 WHERE buffer2_id=#{id}")
+    String selectSecondBuffer(@Param("id") Integer buffer2_id);
+    //删除移走的数据
+    @Update("UPDATE buffer2 SET `Data`=CONCAT(SUBSTRING(Data,2)),Message = CONCAT(IFNULL(Message, ''), ';Get', #{str}),ContentNum=ContentNum-1,FreeSpaceNum=FreeSpaceNum+1 WHERE buffer2_id=#{id}")
+    void deleteCharacters(@Param("str") String str,@Param("id") Integer id);
+    @Select("SELECT ContentNum FROM buffer2 WHERE buffer2_id = #{id}")
+    Integer getBuffer2ContentNum(@Param("id") int id);
 }
 
 

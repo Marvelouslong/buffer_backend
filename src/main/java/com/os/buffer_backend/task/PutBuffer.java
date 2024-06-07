@@ -3,6 +3,7 @@ package com.os.buffer_backend.task;
 import com.os.buffer_backend.model.domain.Buffer1;
 import com.os.buffer_backend.model.domain.Param;
 import com.os.buffer_backend.service.ParamService;
+import com.os.buffer_backend.service.ResultService;
 import com.os.buffer_backend.util.RandomData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,15 +19,18 @@ public class PutBuffer implements Runnable{
     private boolean flag = true;
     @Autowired
     private ParamService paramService;
+    @Autowired
+    ResultService resultService;
 
 
     public PutBuffer() {
     }
 
-    public PutBuffer(Common common,ParamService paramService) {
+    public PutBuffer(Common common,ParamService paramService,ResultService resultService) {
 
         this.common = common;
         this.paramService=paramService;
+        this.resultService=resultService;
     }
     @Override
     public void run() {
@@ -46,43 +50,13 @@ public class PutBuffer implements Runnable{
                 System.out.println(randomChar);
                 Common.buffer1.add(randomChar);// 将字符添加到缓冲区
                 Common.putInBufferNum++;// 增加已经放入缓冲区的字符数
-
                 if (!Common.buffer1.isEmpty()) { // 确保缓冲区中有数据
-                    System.out.println(Common.buffer1);
+                    System.out.println("buffer1缓冲区：    "+Common.buffer1);
                     String data= randomChar;
-                    //String message="move"+data;
-                    //如果Buffer1里是空,直接赋值！
-                    /*if(!(paramService.isOrNotBuffer1Null())){
-                        Buffer1 buf1 = new Buffer1();
-                        //直接赋初值
-                        Integer contentnum=1;
-                        Integer freespacenum=4;
-                        message="move"+data;
-                        buf1.setData(data);
-                        buf1.setMessage(message);
-                        buf1.setContentnum(contentnum);
-                        buf1.setFreespacenum(freespacenum);
-                        paramService.insertBuffer1s(buf1);
-                    }else {*/
-                        int id=Common.buffer1_id;
-                        paramService.updateBuffer1Values(data,id);
-                        System.out.println("数据库非空！");
-                    //}
-                    /*System.out.println("data:"+data);
-                    System.out.println("contentNum:"+contentnum);
-                    System.out.println("free:"+freespacenum);
-                buf1.setContentnum(contentnum+1);
-                buf1.setFreespacenum(freespacenum-1);
-                bfList.add(buf1);
-                System.out.println("list:  "+bfList);*/
-                /*if (!bfList.isEmpty()) {
-                    for (Buffer1 buf12 : bfList) {
-                        // 插入到数据库
-                        //ps.insertBuffer1s(buf12);
-                        // 如果需要，您可以考虑在插入后从bfList中移除buf1对象
-                        //bfList.remove(buf1);
-                    }
-                }*/
+                    int id=Common.buffer1_id;
+                    paramService.updateBuffer1Values(data,id);
+                    int id11=Common.rs_id;
+                    paramService.updateResult1(id11);
                     try {
                     // 模拟线程休眠，这里使用了Common.putSpeed来调整休眠时间
                     Thread.sleep((long) (Math.random() * 100 * (50-Common.putSpeed)));

@@ -39,7 +39,6 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
         Common common=new Common();
         Param pm = paramMapper.selectParamByPId(common.p_id);
         if (pm != null) {
-            System.out.println("从数据库里取Param:  "+pm);
             return pm;
         }
         return null;
@@ -47,21 +46,14 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
     @Transactional(rollbackFor = Exception.class)
     public boolean insertBuffer1s(Buffer1 buffer1){
         if(buffer1!=null){
-            //System.out.println("insert:  "+message+data+contentNum+freeSpaceNum);
             System.out.println("INSERT............");
             String message=buffer1.getMessage();
             String data=buffer1.getData();
             Integer contentNum=buffer1.getContentnum();
             Integer freeSpaceNum=buffer1.getFreespacenum();
-
-//            paramMapper.insertBuffer1(message,data,contentNum,freeSpaceNum);
             System.out.println(message);
             return true;
         }
-        /*String message=buf1.getMessage();
-        String data=buf1.getData();
-        Integer contentNum=buf1.getContentnum();
-        Integer freeSpaceNum=buf1.getFreespacenum();*/
         return false;
     }
 
@@ -83,7 +75,6 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
         }
         return false;
     }
-
     @Override
     public void register(Integer buffer1size, Integer buffer2size, Integer buffer3size, Integer putbuffer1num, Integer movebuffer2num, Integer movebuffer3num, Integer getbuffer2num, Integer getbuffer3num, Integer putspeed, Integer movespeed, Integer getspeed) {
         Param param=new Param();
@@ -99,6 +90,10 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
         resultMapper.init();
         Integer rs_id=resultMapper.getresultId();
         Common common=new Common(p_id,buffer1_id,buffer2_id,buffer3_id,rs_id);
+    }
+    public void updateResult1(int id){
+        int id1=id;
+        resultMapper.updatebuffer1result(id1);
     }
 
 }

@@ -10,4 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface Buffer3Service extends IService<Buffer3> {
     void removeInstr(Integer buffer2_id,String data);
+    public String removeBuffer3(Integer buffer3Id);
+    public void deleteBuffer3(String str,Integer buffer3Id);
+    public void  buffer3Result(int id);
 }

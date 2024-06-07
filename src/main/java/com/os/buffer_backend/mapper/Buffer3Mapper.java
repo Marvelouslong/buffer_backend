@@ -19,10 +19,15 @@ public interface Buffer3Mapper extends BaseMapper<Buffer3> {
     int getBuffer3Id();
     @Update("UPDATE buffer3 SET ContentNum = ContentNum + 1, FreeSpaceNum = FreeSpaceNum - 1 WHERE buffer3_id = #{id}")
     void updateNum(@org.apache.ibatis.annotations.Param("id") Integer id);
-    @Update("UPDATE buffer3 SET Message = CONCAT(IFNULL(Message, ''), ';RemoveIn ', #{str}) WHERE buffer3_id = #{id}")
+    @Update("UPDATE buffer3 SET Message = CONCAT(IFNULL(Message, ''), ';Move', #{str}) WHERE buffer3_id = #{id}")
     void updateMessage(@Param("id") Integer buffer3_id, @Param("str") String str);
     @Update("UPDATE buffer3 SET `Data` = CONCAT(IFNULL(`Data`, ''), #{str}) WHERE buffer3_id = #{id}")
     void updateData(@Param("id") Integer buffer3_id, @Param("str") String str);
+    @Select("SELECT SUBSTRING(Data,1,1) AS first_10_characters FROM buffer3 WHERE buffer3_id=#{id}")
+    String selectThirdBuffer(@Param("id") Integer buffer3_id);
+    //删除移走的数据
+    @Update("UPDATE buffer3 SET `Data`=CONCAT(SUBSTRING(Data,2)),Message = CONCAT(IFNULL(Message, ''), ';Get', #{str}),ContentNum=ContentNum-1,FreeSpaceNum=FreeSpaceNum+1 WHERE buffer3_id=#{id}")
+    void deleteCharacters3(@Param("str") String str,@Param("id") Integer id);
 }
 
 

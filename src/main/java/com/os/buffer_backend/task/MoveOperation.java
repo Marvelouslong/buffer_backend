@@ -29,7 +29,7 @@ public class MoveOperation implements Runnable{
     }
     @Override
     public void run() {
-        while (Common.flag) {
+        //while (Common.flag) {
             System.out.println(Thread.currentThread().getName() + " is working...");
             String threadName = Thread.currentThread().getName();
             String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
@@ -46,6 +46,7 @@ public class MoveOperation implements Runnable{
                 try {
                     Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
                     Common.buffer1.notify();
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -57,6 +58,7 @@ public class MoveOperation implements Runnable{
                             try {
                                 Common.MoveBlockedThreadNum++;
                                 Common.buffer2.wait();
+
                                 Common.MoveBlockedThreadNum--;
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
@@ -64,9 +66,13 @@ public class MoveOperation implements Runnable{
                         }
                         //buffer1移出
                         tmpdata = buffer1Service.removestr(common.buffer1_id);
+                        Common.buffer1.remove(0);
+                        System.out.println("BUFFER1:"+Common.buffer1);
                         //buffer2移入
                         buffer2Service.removeInstr(common.buffer2_id,tmpdata);
                         resultService.updatebuffer2result(common.rs_id);
+                        Common.buffer2.add(tmpdata);
+                        System.out.println("BUFFER2:"+Common.buffer2);//有
                         try {
 
                             Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
@@ -89,9 +95,12 @@ public class MoveOperation implements Runnable{
                         }
                         //buffer1移出
                         tmpdata = buffer1Service.removestr(common.buffer1_id);
+                        Common.buffer1.remove(0);
                         //buffer3移入
                         buffer3Service.removeInstr(common.buffer3_id,tmpdata);
                         resultService.updatebuffer3result(common.rs_id);
+                        Common.buffer3.add(tmpdata);
+                        System.out.println("BUFFER3:"+Common.buffer3);
                         try {
                             Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
                             Common.buffer3.notify();
@@ -111,4 +120,4 @@ public class MoveOperation implements Runnable{
             }
         }
     }
-}
+//}

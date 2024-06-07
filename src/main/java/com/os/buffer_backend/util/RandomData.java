@@ -7,7 +7,7 @@ public class RandomData {
     private static SecureRandom random = new SecureRandom();
 
     public static String generateRandomString() {
-        int length = 10;
+        int length = 1;
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
             sb.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));

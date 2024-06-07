@@ -22,4 +22,5 @@ public interface ParamService extends IService<Param> {
     public void register(Integer buffer1size,Integer buffer2size,Integer buffer3size,Integer putbuffer1num,
                          Integer movebuffer2num,Integer movebuffer3num,Integer getbuffer2num,Integer getbuffer3num,
                          Integer putspeed,Integer movespeed,Integer getspeed);
+    public void updateResult1(int id);
 }

@@ -37,9 +37,9 @@ public class Common {
     public static long endTime;
 
 
-    public static ArrayList<String> buffer1 = new ArrayList<String>(); //buffer
-    public static ArrayList<Character> buffer2 = new ArrayList<>();
-    public static ArrayList<Character> buffer3 = new ArrayList<>();
+    public static ArrayList<String> buffer1 = new ArrayList<String>(); //buffer1缓冲池
+    public static ArrayList<String> buffer2 = new ArrayList<String>();
+    public static ArrayList<String> buffer3 = new ArrayList<String>();
     public Common(){
 
     }
