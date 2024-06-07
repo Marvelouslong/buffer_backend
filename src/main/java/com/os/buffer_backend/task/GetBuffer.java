@@ -43,9 +43,9 @@ public class GetBuffer implements Runnable{
                 synchronized (Common.buffer2) {// 确保对缓冲区的同步访问
                     while (Common.buffer2.size()==0) {//buffer2为空
                         try {
-                            Common.BlockedThreadNum++;
+                            Common.GetBlockedThreadNum++;
                             Common.buffer2.wait();
-                            Common.BlockedThreadNum--;
+                            Common.GetBlockedThreadNum--;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -68,9 +68,9 @@ public class GetBuffer implements Runnable{
                 synchronized (Common.buffer3) {// 确保对缓冲区的同步访问
                     while (Common.buffer3.size()==0) {//buffer2为空
                         try {
-                            Common.BlockedThreadNum++;
+                            Common.GetBlockedThreadNum++;
                             Common.buffer3.wait();
-                            Common.BlockedThreadNum--;
+                            Common.GetBlockedThreadNum--;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

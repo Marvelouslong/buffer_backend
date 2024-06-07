@@ -22,6 +22,7 @@ public class Common {
 
     public static int BlockedThreadNum = 0;
     public static int MoveBlockedThreadNum = 0;
+    public static int GetBlockedThreadNum = 0;
     public static int p_id = 1;
     public static int buffer1_id = 1;
     public static int buffer2_id = 1;
