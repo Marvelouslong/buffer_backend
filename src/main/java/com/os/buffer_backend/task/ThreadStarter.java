@@ -25,7 +25,7 @@ public class ThreadStarter {
 
 //    @PostConstruct // 在bean初始化后执行
     public void startThreads() {
-        paramService.register(4,3,3,3,2,2,3,3,20,20,20);
+        //paramService.register(4,3,3,3,2,2,3,3,20,20,20);
         Param param = paramService.readParmById();
         //paramService.selectBuffer1ByData();
         if (param != null) {

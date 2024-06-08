@@ -77,7 +77,6 @@ public class ParamServiceImpl extends ServiceImpl<ParamMapper, Param>
     }
     @Override
     public void register(Integer buffer1size, Integer buffer2size, Integer buffer3size, Integer putbuffer1num, Integer movebuffer2num, Integer movebuffer3num, Integer getbuffer2num, Integer getbuffer3num, Integer putspeed, Integer movespeed, Integer getspeed) {
-        Param param=new Param();
         paramMapper.insertparam(buffer1size,buffer2size,buffer3size,putbuffer1num,movebuffer2num,movebuffer3num,
                 getbuffer2num,getbuffer3num,putspeed,movespeed,getspeed);
         Integer p_id=paramMapper.getParamId();

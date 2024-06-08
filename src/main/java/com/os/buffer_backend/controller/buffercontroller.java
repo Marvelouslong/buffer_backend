@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {"http://127.0.0.1:5173"})
 @Slf4j
 public class buffercontroller {
+    @Autowired
+    private ParamService paramService;
     @PostMapping("/start")
     public ResponseEntity<String> startBuffer(@RequestBody ParamRequest paramRequest) {
         if (paramRequest == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("未传参数");
         }
-        ParamService paramService=new ParamServiceImpl();
         Integer buffer1size=paramRequest.getBuffer1size();
         Integer buffer2size=paramRequest.getBuffer2size();
         Integer buffer3size=paramRequest.getBuffer3size();
