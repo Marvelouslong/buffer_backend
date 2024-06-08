@@ -59,13 +59,13 @@ public class PutBuffer implements Runnable{
                     //int id11=Common.rs_id;
                     paramService.updateResult1(Common.rs_id);
                     try {
-                    // 模拟线程休眠，这里使用了Common.putSpeed来调整休眠时间
-                    Thread.sleep((long) (Math.random() * 100 * (50-Common.putSpeed)));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                        // 模拟线程休眠，这里使用了Common.putSpeed来调整休眠时间
+                        Thread.sleep((long) (Math.random() * 100 * (50-Common.putSpeed)));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Common.buffer1.notify();
                 }
-                Common.buffer1.notify();
-            }
             }
             // 通知可能在等待的线程（如果有的话）
             while (Common.pause) {
