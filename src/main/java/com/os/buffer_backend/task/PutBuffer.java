@@ -50,21 +50,22 @@ public class PutBuffer implements Runnable{
                 System.out.println(randomChar);
                 Common.buffer1.add(randomChar);// 将字符添加到缓冲区
                 Common.putInBufferNum++;// 增加已经放入缓冲区的字符数
+
                 if (!Common.buffer1.isEmpty()) { // 确保缓冲区中有数据
-                    System.out.println("buffer1缓冲区：    "+Common.buffer1);
+                    System.out.println(Common.buffer1);
                     String data= randomChar;
                     int id=Common.buffer1_id;
                     paramService.updateBuffer1Values(data,id);
-                    int id11=Common.rs_id;
-                    paramService.updateResult1(id11);
+                    //int id11=Common.rs_id;
+                    paramService.updateResult1(Common.rs_id);
                     try {
-                    // 模拟线程休眠，这里使用了Common.putSpeed来调整休眠时间
-                    Thread.sleep((long) (Math.random() * 100 * (50-Common.putSpeed)));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                        // 模拟线程休眠，这里使用了Common.putSpeed来调整休眠时间
+                        Thread.sleep((long) (Math.random() * 100 * (50-Common.putSpeed)));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Common.buffer1.notify();
                 }
-                Common.buffer1.notify();
-            }
             }
             // 通知可能在等待的线程（如果有的话）
             while (Common.pause) {

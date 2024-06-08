@@ -30,94 +30,94 @@ public class MoveOperation implements Runnable{
     @Override
     public void run() {
         //while (Common.flag) {
-            System.out.println(Thread.currentThread().getName() + " is working...");
-            String threadName = Thread.currentThread().getName();
-            String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
-            synchronized (common.buffer1) {
-                while (Common.buffer1.size() == 0) {
-                    try {
-                        Common.MoveBlockedThreadNum++;
-                        Common.buffer1.wait();
-                        Common.MoveBlockedThreadNum--;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        System.out.println(Thread.currentThread().getName() + " is working...");
+        String threadName = Thread.currentThread().getName();
+        String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
+        synchronized (Common.buffer1) {
+            while (Common.buffer1.size() == 0) {
                 try {
-                    Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
-                    Common.buffer1.notify();
-
+                    Common.MoveBlockedThreadNum++;
+                    Common.buffer1.wait();
+                    Common.MoveBlockedThreadNum--;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+            try {
+                Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
+                Common.buffer1.notify();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
-                if(firstSevenName.equals("buffer2")) {
-                    synchronized (Common.buffer2) {
-                        while (Common.buffer2.size() == Common.Buffer2Size) {
-                            try {
-                                Common.MoveBlockedThreadNum++;
-                                Common.buffer2.wait();
-
-                                Common.MoveBlockedThreadNum--;
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        //buffer1移出
-                        tmpdata = buffer1Service.removestr(common.buffer1_id);
-                        Common.buffer1.remove(0);
-                        System.out.println("BUFFER1:"+Common.buffer1);
-                        //buffer2移入
-                        buffer2Service.removeInstr(common.buffer2_id,tmpdata);
-                        resultService.updatebuffer2result(common.rs_id);
-                        Common.buffer2.add(tmpdata);
-                        System.out.println("BUFFER2:"+Common.buffer2);//有
+            if(firstSevenName.equals("buffer2")) {
+                synchronized (Common.buffer2) {
+                    while (Common.buffer2.size() == Common.Buffer2Size) {
                         try {
+                            Common.MoveBlockedThreadNum++;
+                            Common.buffer2.wait();
 
-                            Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
-                            Common.buffer2.notify();
+                            Common.MoveBlockedThreadNum--;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
                     }
-                }else if(firstSevenName.equals("buffer3")) {
-                    synchronized (Common.buffer3) {
-                        while (Common.buffer3.size() == Common.Buffer3Size) {
-                            try {
-                                Common.MoveBlockedThreadNum++;
-                                Common.buffer3.wait();
-                                Common.MoveBlockedThreadNum--;
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        //buffer1移出
-                        tmpdata = buffer1Service.removestr(common.buffer1_id);
-                        Common.buffer1.remove(0);
-                        //buffer3移入
-                        buffer3Service.removeInstr(common.buffer3_id,tmpdata);
-                        resultService.updatebuffer3result(common.rs_id);
-                        Common.buffer3.add(tmpdata);
-                        System.out.println("BUFFER3:"+Common.buffer3);
-                        try {
-                            Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
-                            Common.buffer3.notify();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-                while (Common.pause) {
+                    //buffer1移出
+                    tmpdata = buffer1Service.removestr(common.buffer1_id);
+                    common.buffer1.remove(0);
+                    System.out.println("BUFFER1:"+common.buffer1);
+                    //buffer2移入
+                    buffer2Service.removeInstr(common.buffer2_id,tmpdata);
+                    resultService.updatebuffer2result(common.rs_id);
+                    common.buffer2.add(tmpdata);
+                    System.out.println("BUFFER2:"+common.buffer2);//有
                     try {
-                        Thread.sleep(10);
+
+                        Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
+                        Common.buffer2.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                }
+            }else if(firstSevenName.equals("buffer3")) {
+                synchronized (Common.buffer3) {
+                    while (Common.buffer3.size() == Common.Buffer3Size) {
+                        try {
+                            Common.MoveBlockedThreadNum++;
+                            Common.buffer3.wait();
+                            Common.MoveBlockedThreadNum--;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    //buffer1移出
+                    tmpdata = buffer1Service.removestr(common.buffer1_id);
+                    common.buffer1.remove(0);
+                    //buffer3移入
+                    buffer3Service.removeInstr(common.buffer3_id,tmpdata);
+                    resultService.updatebuffer3result(common.rs_id);
+                    Common.buffer3.add(tmpdata);
+                    System.out.println("BUFFER3:"+common.buffer3);
+                    try {
+                        Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
+                        Common.buffer3.notify();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+            while (Common.pause) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
     }
+}
 //}

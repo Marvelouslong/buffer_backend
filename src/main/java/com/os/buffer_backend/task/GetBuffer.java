@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @date 2018/12/18 - 15:21
  */
 @Component
-public class GetBuffer implements Runnable{
+public class GetBuffer implements Runnable {
 
     private boolean flag = true;
     private Common common;
@@ -25,24 +25,25 @@ public class GetBuffer implements Runnable{
 
     public GetBuffer() {
     }
-    public GetBuffer(ParamService paramService,Common common, Buffer1Service buffer1Service,Buffer2Service buffer2Service,Buffer3Service buffer3Service) {
-        this.paramService=paramService;
-        this.buffer1Service=buffer1Service;
+
+    public GetBuffer(ParamService paramService, Common common, Buffer1Service buffer1Service, Buffer2Service buffer2Service, Buffer3Service buffer3Service) {
+        this.paramService = paramService;
+        this.buffer1Service = buffer1Service;
         this.buffer2Service = buffer2Service;
-        this.buffer3Service=buffer3Service;
+        this.buffer3Service = buffer3Service;
         this.common = common;
     }
+
     @Override
     public void run() {
         while (Common.flag) {
-            System.out.println(Thread.currentThread().getName()+"is working");
-            String threadName=Thread.currentThread().getName();
-            String firstSevenName=threadName.substring(0,Math.min(threadName.length(),7));
-            if(firstSevenName.equals("buffer2")) {
-                int id=common.buffer2_id;
-
+            System.out.println(Thread.currentThread().getName() + "is working");
+            String threadName = Thread.currentThread().getName();
+            String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
+            if (firstSevenName.equals("buffer2")) {
+                int id = common.buffer2_id;
                 synchronized (Common.buffer2) {// 确保对缓冲区的同步访问
-                    while (Common.buffer2.size()==0) {//buffer2为空
+                    while (Common.buffer2.size() == 0) {//buffer2为空
                         try {
                             Common.GetBlockedThreadNum++;
                             Common.buffer2.wait();
@@ -51,23 +52,24 @@ public class GetBuffer implements Runnable{
                             e.printStackTrace();
                         }
                     }
-                    String bu2=buffer2Service.removeBuffer2(id);
-                    buffer2Service.deleteBuffer2(bu2,id);
+                    String bu2 = buffer2Service.removeBuffer2(id);
+                    buffer2Service.deleteBuffer2(bu2, id);
                     buffer2Service.buffer2Result(common.rs_id);
+                    System.out.println("(移动前)buffer2缓冲区:" + common.buffer2);
                     common.buffer2.remove(0);
-                    System.out.println("buffer2缓冲区:"+common.buffer2);
+                    System.out.println("(移动后)buffer2缓冲区:" + common.buffer2);
                     try {
-                        Thread.sleep((long) (Math.random() * 100 * (50-Common.getSpeed)));
+                        Thread.sleep((long) (Math.random() * 100 * (50 - Common.getSpeed)));
                         Common.buffer2.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
                 }
-            }else if(firstSevenName.equals("buffer3")) {
-                int id=common.buffer3_id;
+            } else if (firstSevenName.equals("buffer3")) {
+                int id = Common.buffer3_id;
                 synchronized (Common.buffer3) {// 确保对缓冲区的同步访问
-                    while (Common.buffer3.size()==0) {//buffer2为空
+                    while (Common.buffer3.size() == 0) {//buffer2为空
                         try {
                             Common.GetBlockedThreadNum++;
                             Common.buffer3.wait();
@@ -76,14 +78,16 @@ public class GetBuffer implements Runnable{
                             e.printStackTrace();
                         }
                     }
-                    String bu3=buffer3Service.removeBuffer3(id);
-                    System.out.println("bu:  "+bu3);
-                    buffer3Service.deleteBuffer3(bu3,id);
+                    String bu3 = buffer3Service.removeBuffer3(id);
+                    System.out.println("bu:  " + bu3);
+                    buffer3Service.deleteBuffer3(bu3, id);
                     buffer3Service.buffer3Result(common.rs_id);
+                    System.out.println("(移动前)buffer3缓冲区:" + common.buffer3);
+
                     common.buffer3.remove(0);
-                    System.out.println("buffer3缓冲区:"+common.buffer3);
+                    System.out.println("(移动后)buffer3缓冲区:" + common.buffer3);
                     try {
-                        Thread.sleep((long) (Math.random() * 100 * (50-Common.getSpeed)));
+                        Thread.sleep((long) (Math.random() * 100 * (50 - Common.getSpeed)));
                         Common.buffer3.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -101,6 +105,6 @@ public class GetBuffer implements Runnable{
 
 
         }
-
     }
 }
+   
