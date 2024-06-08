@@ -23,7 +23,7 @@ public class ThreadStarter {
 //    @Autowired
 //    private ParamService ps;
 
-    @PostConstruct // 在bean初始化后执行
+//    @PostConstruct // 在bean初始化后执行
     public void startThreads() {
         paramService.register(4,3,3,3,2,2,3,3,20,20,20);
         Param param = paramService.readParmById();
@@ -48,5 +48,6 @@ public class ThreadStarter {
                 new Thread(new GetBuffer(paramService,common,buffer1Service,buffer2Service,buffer3Service),"buffer3"+i).start();
             }
         }
+
     }
 }

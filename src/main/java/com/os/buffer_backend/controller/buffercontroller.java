@@ -1,45 +1,25 @@
 package com.os.buffer_backend.controller;
 
-import com.os.buffer_backend.model.domain.Param;
 import com.os.buffer_backend.model.request.ParamRequest;
 import com.os.buffer_backend.service.ParamService;
 import com.os.buffer_backend.service.impl.ParamServiceImpl;
-import jakarta.annotation.Resource;
+import com.os.buffer_backend.task.ThreadStarter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/buffer")
-@CrossOrigin(origins = {"http://127.0.0.1:5173/"})
+@CrossOrigin(origins = {"http://127.0.0.1:5173"})
 @Slf4j
 public class buffercontroller {
-    @Resource
-    private boolean userService;
-    @PostMapping("/getbuffer")
-    public boolean GetBuffer(HttpServletRequest request) {
-        boolean flag=false;
-        return flag;
-    }
-    @GetMapping("/get")
-    public boolean getbufferId(long id) {
-        String buffer = null;
-        boolean flag = false;
-        if (id <= 0) {
-            
-        }
-        if (buffer == null) {
-            
-        }
-        return flag;
-    }
     @PostMapping("/start")
-    public void start(@RequestBody ParamRequest paramRequest) {
-        String str=null;
+    public ResponseEntity<String> startBuffer(@RequestBody ParamRequest paramRequest) {
         if (paramRequest == null) {
-            log.error("未写参数");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("未传参数");
         }
         ParamService paramService=new ParamServiceImpl();
         Integer buffer1size=paramRequest.getBuffer1size();
@@ -55,9 +35,14 @@ public class buffercontroller {
         Integer getspeed=paramRequest.getGetspeed();
         if ((buffer1size ==0)&&(buffer2size==0)&&(buffer3size==0)&&(putbuffer1num==0)&&(movebuffer2num==0)&&(movebuffer3num==0)
                 &&(getbuffer2num==0)&&(getbuffer3num==0)&&(putspeed==0)&&(movespeed==0)&&(getspeed==0)) {
-            log.error("参数为0");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("参数为0");
         }
         paramService.register(buffer1size,buffer2size,buffer3size,putbuffer1num,movebuffer2num,movebuffer3num,getbuffer2num,getbuffer3num,putspeed,movespeed,getspeed);
-        log.error("success");
+        return ResponseEntity.ok("success");
+    }
+    @PostMapping("/begin")
+    public void begin() {
+        ThreadStarter threadStarter=new ThreadStarter();
+        threadStarter.startThreads();
     }
 }
