@@ -40,6 +40,7 @@ public class GetBuffer implements Runnable{
             String firstSevenName=threadName.substring(0,Math.min(threadName.length(),7));
             if(firstSevenName.equals("buffer2")) {
                 int id=common.buffer2_id;
+
                 synchronized (Common.buffer2) {// 确保对缓冲区的同步访问
                     while (Common.buffer2.size()==0) {//buffer2为空
                         try {
@@ -52,8 +53,8 @@ public class GetBuffer implements Runnable{
                     }
                     String bu2=buffer2Service.removeBuffer2(id);
                     buffer2Service.deleteBuffer2(bu2,id);
-                    buffer2Service.buffer2Result(id);
-                    Common.buffer2.remove(0);
+                    buffer2Service.buffer2Result(common.rs_id);
+                    common.buffer2.remove(0);
                     System.out.println("buffer2缓冲区:"+common.buffer2);
                     try {
                         Thread.sleep((long) (Math.random() * 100 * (50-Common.getSpeed)));
@@ -78,9 +79,9 @@ public class GetBuffer implements Runnable{
                     String bu3=buffer3Service.removeBuffer3(id);
                     System.out.println("bu:  "+bu3);
                     buffer3Service.deleteBuffer3(bu3,id);
-                    buffer3Service.buffer3Result(id);
-                    Common.buffer3.remove(0);
-                    System.out.println("buffer3缓冲区:"+Common.buffer3);
+                    buffer3Service.buffer3Result(common.rs_id);
+                    common.buffer3.remove(0);
+                    System.out.println("buffer3缓冲区:"+common.buffer3);
                     try {
                         Thread.sleep((long) (Math.random() * 100 * (50-Common.getSpeed)));
                         Common.buffer3.notify();
