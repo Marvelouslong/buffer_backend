@@ -114,8 +114,12 @@ public class buffercontroller {
         return ResponseEntity.ok(infiniteList);
     }
     @PostMapping("/pause")
-    public ResponseEntity<String> pause(@RequestParam boolean pause){
-        common.pause=pause;
+    public ResponseEntity<String> pause(@RequestBody String pause){
+        if(pause.equals("true=")){
+            common.pause=true;
+        }else{
+            common.pause=false;
+        }
         return ResponseEntity.ok("ok");
     }
 }
