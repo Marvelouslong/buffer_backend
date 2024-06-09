@@ -26,6 +26,10 @@ public class ResultServiceImpl extends ServiceImpl<ResultMapper, Result>
     public void updatebuffer3result(Integer rs_id) {
         resultMapper.updatebuffer3result(rs_id);
     }
+    public Result getBufferResult(Integer id){
+        Result res=resultMapper.getResult(id);
+        return res;
+    }
 
 }
 

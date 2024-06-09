@@ -3,6 +3,8 @@ package com.os.buffer_backend.service;
 import com.os.buffer_backend.model.domain.Buffer3;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author HAN
 * @description 针对表【buffer3】的数据库操作Service
@@ -13,4 +15,5 @@ public interface Buffer3Service extends IService<Buffer3> {
     public String removeBuffer3(Integer buffer3Id);
     public void deleteBuffer3(String str,Integer buffer3Id);
     public void  buffer3Result(int id);
+    public List<Buffer3> putBuffer3History();
 }

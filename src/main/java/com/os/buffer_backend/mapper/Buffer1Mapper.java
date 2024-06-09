@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
 * @author HAN
 * @description 针对表【buffer1】的数据库操作Mapper
@@ -27,6 +29,8 @@ public interface Buffer1Mapper extends BaseMapper<Buffer1> {
         void insertBuffer1(@org.apache.ibatis.annotations.Param("freeSpaceNum") Integer freeSpaceNum);
         @Select("SELECT LAST_INSERT_ID()")
         int getBuffer1Id();
+        @Select("SELECT * FROM buffer1")
+        List<Buffer1> getBuffer1History();
 }
 
 

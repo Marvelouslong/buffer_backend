@@ -11,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ResultService extends IService<Result> {
     void updatebuffer2result(Integer rs_id);
     void updatebuffer3result(Integer rs_id);
+    public Result getBufferResult(Integer id);
 }

@@ -3,6 +3,8 @@ package com.os.buffer_backend.service;
 import com.os.buffer_backend.model.domain.Buffer1;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author HAN
 * @description 针对表【buffer1】的数据库操作Service
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface Buffer1Service extends IService<Buffer1> {
     String removestr(Integer buffer1_id);
+    public List<Buffer1> putBuffer1History();
 }

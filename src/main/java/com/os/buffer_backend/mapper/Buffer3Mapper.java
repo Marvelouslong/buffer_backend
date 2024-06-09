@@ -1,9 +1,13 @@
 package com.os.buffer_backend.mapper;
 
+import com.os.buffer_backend.model.domain.Buffer1;
+import com.os.buffer_backend.model.domain.Buffer2;
 import com.os.buffer_backend.model.domain.Buffer3;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 import org.springframework.jmx.export.annotation.ManagedNotification;
+
+import java.util.List;
 
 /**
 * @author HAN
@@ -28,6 +32,8 @@ public interface Buffer3Mapper extends BaseMapper<Buffer3> {
     //删除移走的数据
     @Update("UPDATE buffer3 SET `Data`=CONCAT(SUBSTRING(Data,2)),Message = CONCAT(IFNULL(Message, ''), ';Get', #{str}),ContentNum=ContentNum-1,FreeSpaceNum=FreeSpaceNum+1 WHERE buffer3_id=#{id}")
     void deleteCharacters3(@Param("str") String str,@Param("id") Integer id);
+    @Select("SELECT * FROM buffer3")
+    List<Buffer3> getBuffer3History();
 }
 
 

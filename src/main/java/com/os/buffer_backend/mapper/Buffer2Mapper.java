@@ -5,6 +5,8 @@ import com.os.buffer_backend.model.domain.Buffer2;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
 * @author HAN
 * @description 针对表【buffer2】的数据库操作Mapper
@@ -33,6 +35,8 @@ public interface Buffer2Mapper extends BaseMapper<Buffer2> {
     void deleteCharacters(@Param("str") String str,@Param("id") Integer id);
     @Select("SELECT ContentNum FROM buffer2 WHERE buffer2_id = #{id}")
     Integer getBuffer2ContentNum(@Param("id") int id);
+    @Select("SELECT * FROM buffer2")
+    List<Buffer2> getBuffer2History();
 }
 
 

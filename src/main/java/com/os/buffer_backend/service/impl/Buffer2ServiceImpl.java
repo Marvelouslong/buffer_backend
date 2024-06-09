@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
 * @author HAN
 * @description 针对表【buffer2】的数据库操作Service实现
@@ -62,6 +64,9 @@ public class Buffer2ServiceImpl extends ServiceImpl<Buffer2Mapper, Buffer2>
     public void buffer2Result(int id){
         int b2=id;
         resultMapper.buffer2Result(b2);
+    }
+    public List<Buffer2> putBuffer2History(){
+        return buffer2Mapper.getBuffer2History();
     }
 }
 
