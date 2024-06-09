@@ -42,12 +42,12 @@ public class GetBuffer implements Runnable {
             String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
             if (firstSevenName.equals("buffer2")) {
                 int id = common.buffer2_id;
-                synchronized (Common.buffer2) {// 确保对缓冲区的同步访问
-                    while (Common.buffer2.size() == 0) {//buffer2为空
+                synchronized (common.buffer2) {// 确保对缓冲区的同步访问
+                    while (common.buffer2.size() == 0) {//buffer2为空
                         try {
-                            Common.GetBlockedThreadNum++;
-                            Common.buffer2.wait();
-                            Common.GetBlockedThreadNum--;
+                            common.GetBlockedThreadNum++;
+                            common.buffer2.wait();
+                            common.GetBlockedThreadNum--;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -59,21 +59,21 @@ public class GetBuffer implements Runnable {
                     common.buffer2.remove(0);
                     System.out.println("(移动后)buffer2缓冲区:" + common.buffer2);
                     try {
-                        Thread.sleep((long) (Math.random() * 100 * (50 - Common.getSpeed)));
-                        Common.buffer2.notify();
+                        Thread.sleep((long) common.getSpeed * 1000);
+                        common.buffer2.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
                 }
             } else if (firstSevenName.equals("buffer3")) {
-                int id = Common.buffer3_id;
-                synchronized (Common.buffer3) {// 确保对缓冲区的同步访问
-                    while (Common.buffer3.size() == 0) {//buffer2为空
+                int id = common.buffer3_id;
+                synchronized (common.buffer3) {// 确保对缓冲区的同步访问
+                    while (common.buffer3.size() == 0) {//buffer2为空
                         try {
-                            Common.GetBlockedThreadNum++;
-                            Common.buffer3.wait();
-                            Common.GetBlockedThreadNum--;
+                            common.GetBlockedThreadNum++;
+                            common.buffer3.wait();
+                            common.GetBlockedThreadNum--;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -88,14 +88,14 @@ public class GetBuffer implements Runnable {
                     System.out.println("(移动后)buffer3缓冲区:" + common.buffer3);
                     try {
                         Thread.sleep((long)  common.getSpeed * 1000);
-                        Common.buffer3.notify();
+                        common.buffer3.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
                 }
             }
-            while (Common.pause) {
+            while (common.pause) {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {

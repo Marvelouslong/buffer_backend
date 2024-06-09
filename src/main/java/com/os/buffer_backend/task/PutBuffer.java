@@ -36,22 +36,22 @@ public class PutBuffer implements Runnable{
     public void run() {
       //  while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
             //同步代码段
-            synchronized (Common.buffer1) {// 确保对缓冲区的同步访问
-                while (Common.buffer1.size()==Common.Buffer1Size) {// 如果缓冲区已满，则等待
+            synchronized (common.buffer1) {// 确保对缓冲区的同步访问
+                while (common.buffer1.size()==common.Buffer1Size) {// 如果缓冲区已满，则等待
                     try {
-                        Common.BlockedThreadNum++;// 增加阻塞线程数
-                        Common.buffer1.wait();// 等待，直到其他线程通知（notify或notifyAll）
-                        Common.BlockedThreadNum--;//// 减少阻塞线程数（可选）
+                        common.BlockedThreadNum++;// 增加阻塞线程数
+                        common.buffer1.wait();// 等待，直到其他线程通知（notify或notifyAll）
+                        common.BlockedThreadNum--;//// 减少阻塞线程数（可选）
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
                 String randomChar = RandomData.generateRandomString();// 生成随机字符
                 System.out.println(randomChar);
-                Common.buffer1.add(randomChar);// 将字符添加到缓冲区
-                Common.putInBufferNum++;// 增加已经放入缓冲区的字符数
+                common.buffer1.add(randomChar);// 将字符添加到缓冲区
+                common.putInBufferNum++;// 增加已经放入缓冲区的字符数
 
-                if (!Common.buffer1.isEmpty()) { // 确保缓冲区中有数据
+                if (!common.buffer1.isEmpty()) { // 确保缓冲区中有数据
                     System.out.println(Common.buffer1);
                     String data= randomChar;
                     int id=Common.buffer1_id;
@@ -68,7 +68,7 @@ public class PutBuffer implements Runnable{
                 }
             }
             // 通知可能在等待的线程（如果有的话）
-            while (Common.pause) {
+            while (common.pause) {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {

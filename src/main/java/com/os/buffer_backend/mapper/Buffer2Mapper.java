@@ -25,8 +25,6 @@ public interface Buffer2Mapper extends BaseMapper<Buffer2> {
     void updateMessage(@Param("id") Integer buffer2_id, @Param("str") String str);
     @Update("UPDATE buffer2 SET `Data` = CONCAT(IFNULL(`Data`, ''), #{str}) WHERE buffer2_id = #{id}")
     void updateData(@Param("id") Integer buffer2_id, @Param("str") String str);
-    @Select("SELECT * FROM buffer2 WHERE buffer2_id = 1")
-    Buffer2 selectBuffer2ById(@Param("buffer2Id") Integer buffer2Id);
     //将要取走的数据保存到first_10_characters
     @Select("SELECT SUBSTRING(Data,1,1) AS first_10_characters FROM buffer2 WHERE buffer2_id=#{id}")
     String selectSecondBuffer(@Param("id") Integer buffer2_id);
@@ -37,6 +35,8 @@ public interface Buffer2Mapper extends BaseMapper<Buffer2> {
     Integer getBuffer2ContentNum(@Param("id") int id);
     @Select("SELECT * FROM buffer2")
     List<Buffer2> getBuffer2History();
+    @Select("SELECT `Data` FROM buffer2 WHERE buffer2_id=#{id}")
+    String getBuffer2Data(@org.apache.ibatis.annotations.Param("id") Integer id);
 }
 
 

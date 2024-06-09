@@ -3,6 +3,8 @@ package com.os.buffer_backend.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.os.buffer_backend.mapper.ResultMapper;
 import com.os.buffer_backend.model.domain.Buffer3;
+import com.os.buffer_backend.model.domain.Result;
+import com.os.buffer_backend.model.request.Work;
 import com.os.buffer_backend.service.Buffer3Service;
 import com.os.buffer_backend.mapper.Buffer3Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,19 @@ public class Buffer3ServiceImpl extends ServiceImpl<Buffer3Mapper, Buffer3>
     }
     public List<Buffer3> putBuffer3History(){
         return buffer3Mapper.getBuffer3History();
+    }
+    @Override
+    public Work getdata(Integer id, Integer rs_id) {
+        String data=buffer3Mapper.getBuffer3Data(id);
+        Integer ContentNum=buffer3Mapper.getBuffer3ContentNum(id);
+        Work work1=new Work();
+        work1.setData1(data);
+        work1.setContentNum(ContentNum);
+        Result result=new Result();
+        result=resultMapper.getResult(rs_id);
+        work1.setGetbuffernum(result.getGetbuffer3num());
+        work1.setPutbuffernum(result.getPutbuffer3num());
+        return work1;
     }
 }
 

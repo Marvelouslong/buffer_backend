@@ -4,7 +4,9 @@ import com.os.buffer_backend.model.domain.Buffer1;
 import com.os.buffer_backend.model.domain.Buffer2;
 import com.os.buffer_backend.model.domain.Buffer3;
 import com.os.buffer_backend.model.domain.Result;
+import com.os.buffer_backend.model.request.InfiniteList;
 import com.os.buffer_backend.model.request.ParamRequest;
+import com.os.buffer_backend.model.request.Work;
 import com.os.buffer_backend.service.ParamService;
 import com.os.buffer_backend.service.ResultService;
 import com.os.buffer_backend.service.Buffer1Service;
@@ -80,5 +82,40 @@ public class buffercontroller {
         responseData.put("buffer3", buffer3);
         responseData.put("res",result);
         return ResponseEntity.ok(responseData);
+    }
+    @GetMapping("/getBuffer")
+    public ResponseEntity<Work> getBuffer(@RequestParam String bufferValue){
+        Work work=new Work();
+
+        if (bufferValue.equals("Buffer1")){
+            work=buffer1Service.getdata(common.buffer1_id,common.rs_id);
+            work.setBufferValue("Buffer1");
+        }
+        else if (bufferValue.equals("Buffer2")){
+            work=buffer2Service.getdata(common.buffer2_id,common.rs_id);
+            work.setBufferValue("Buffer2");
+        } else if (bufferValue.equals("Buffer3")) {
+            work=buffer3Service.getdata(common.buffer3_id,common.rs_id);
+            work.setBufferValue("Buffer3");
+        }else {
+            return ResponseEntity.badRequest().body(null);
+        }
+        return ResponseEntity.ok(work);
+    }
+    @GetMapping("/threadblock")
+    public ResponseEntity<InfiniteList> threadblock(){
+        Integer putthreadblocknum=common.BlockedThreadNum;
+        Integer movethreadblocknum=common.MoveBlockedThreadNum;
+        Integer getthreadblocknum=common.GetBlockedThreadNum;
+        InfiniteList infiniteList=new InfiniteList();
+        infiniteList.setPutthreadblocknum(putthreadblocknum);
+        infiniteList.setMovethreadblocknum(movethreadblocknum);
+        infiniteList.setGetthreadblocknum(getthreadblocknum);
+        return ResponseEntity.ok(infiniteList);
+    }
+    @PostMapping("/pause")
+    public ResponseEntity<String> pause(@RequestParam boolean pause){
+        common.pause=pause;
+        return ResponseEntity.ok("ok");
     }
 }

@@ -31,6 +31,10 @@ public interface Buffer1Mapper extends BaseMapper<Buffer1> {
         int getBuffer1Id();
         @Select("SELECT * FROM buffer1")
         List<Buffer1> getBuffer1History();
+        @Select("SELECT `Data` FROM buffer1 WHERE buffer1_id=#{id}")
+        String getBuffer1Data(@org.apache.ibatis.annotations.Param("id") Integer id);
+        @Select("SELECT ContentNum FROM buffer1 WHERE buffer1_id=#{id}")
+        Integer getBuffer1ContentNum(@org.apache.ibatis.annotations.Param("id") Integer id);
 }
 
 

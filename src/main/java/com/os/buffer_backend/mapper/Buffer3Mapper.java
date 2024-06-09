@@ -34,6 +34,10 @@ public interface Buffer3Mapper extends BaseMapper<Buffer3> {
     void deleteCharacters3(@Param("str") String str,@Param("id") Integer id);
     @Select("SELECT * FROM buffer3")
     List<Buffer3> getBuffer3History();
+    @Select("SELECT `Data` FROM buffer3 WHERE buffer3_id=#{id}")
+    String getBuffer3Data(@org.apache.ibatis.annotations.Param("id") Integer id);
+    @Select("SELECT ContentNum FROM buffer3 WHERE buffer3_id=#{id}")
+    Integer getBuffer3ContentNum(@org.apache.ibatis.annotations.Param("id") Integer id);
 }
 
 

@@ -2,6 +2,7 @@ package com.os.buffer_backend.service;
 
 import com.os.buffer_backend.model.domain.Buffer3;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.os.buffer_backend.model.request.Work;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface Buffer3Service extends IService<Buffer3> {
     public void deleteBuffer3(String str,Integer buffer3Id);
     public void  buffer3Result(int id);
     public List<Buffer3> putBuffer3History();
+    Work getdata(Integer id, Integer rs_id);
 }

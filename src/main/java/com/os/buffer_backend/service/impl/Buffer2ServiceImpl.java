@@ -3,6 +3,8 @@ package com.os.buffer_backend.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.os.buffer_backend.mapper.ResultMapper;
 import com.os.buffer_backend.model.domain.Buffer2;
+import com.os.buffer_backend.model.domain.Result;
+import com.os.buffer_backend.model.request.Work;
 import com.os.buffer_backend.service.Buffer2Service;
 import com.os.buffer_backend.mapper.Buffer2Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +30,6 @@ public class Buffer2ServiceImpl extends ServiceImpl<Buffer2Mapper, Buffer2>
         buffer2Mapper.updateMessage(buffer2_id,data);
         buffer2Mapper.updateNum(buffer2_id);
         buffer2Mapper.updateData(buffer2_id,data);
-    }
-    @Transactional(rollbackFor = Exception.class)
-    public Buffer2 getBuffer2ById(Integer buffer2Id) {
-        Buffer2 bu = buffer2Mapper.selectBuffer2ById(buffer2Id);
-        if (bu != null) {
-            System.out.println("buffer2ServiceImpl:      " + bu); // 这将打印整个 Buffer2 对象的 toString() 方法的结果
-            return bu;
-        }
-        return null; // 如果没有找到对应的 Buffer2 对象，则返回 null
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -67,6 +60,19 @@ public class Buffer2ServiceImpl extends ServiceImpl<Buffer2Mapper, Buffer2>
     }
     public List<Buffer2> putBuffer2History(){
         return buffer2Mapper.getBuffer2History();
+    }
+    @Override
+    public Work getdata(Integer id, Integer rs_id) {
+        String data=buffer2Mapper.getBuffer2Data(id);
+        Integer ContentNum=buffer2Mapper.getBuffer2ContentNum(id);
+        Work work1=new Work();
+        work1.setData1(data);
+        work1.setContentNum(ContentNum);
+        Result result=new Result();
+        result=resultMapper.getResult(rs_id);
+        work1.setGetbuffernum(result.getGetbuffer2num());
+        work1.setPutbuffernum(result.getPutbuffer2num());
+        return work1;
     }
 }
 

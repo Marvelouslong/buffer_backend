@@ -33,19 +33,20 @@ public class MoveOperation implements Runnable{
         System.out.println(Thread.currentThread().getName() + " is working...");
         String threadName = Thread.currentThread().getName();
         String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
-        synchronized (Common.buffer1) {
-            while (Common.buffer1.size() == 0) {
+        synchronized (common.buffer1) {
+            while (common.buffer1.size() == 0) {
                 try {
-                    Common.MoveBlockedThreadNum++;
-                    Common.buffer1.wait();
-                    Common.MoveBlockedThreadNum--;
+                    common.MoveBlockedThreadNum++;
+                    System.out.println("common.MoveBlockedThreadNum is"+common.MoveBlockedThreadNum);
+                    common.buffer1.wait();
+                    common.MoveBlockedThreadNum--;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             try {
-                Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
-                Common.buffer1.notify();
+                Thread.sleep((long) common.moveSpeed * 1000);
+                common.buffer1.notify();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -53,13 +54,13 @@ public class MoveOperation implements Runnable{
 
 
             if(firstSevenName.equals("buffer2")) {
-                synchronized (Common.buffer2) {
-                    while (Common.buffer2.size() == Common.Buffer2Size) {
+                synchronized (common.buffer2) {
+                    while (common.buffer2.size() == common.Buffer2Size) {
                         try {
-                            Common.MoveBlockedThreadNum++;
-                            Common.buffer2.wait();
+                            common.MoveBlockedThreadNum++;
+                            common.buffer2.wait();
 
-                            Common.MoveBlockedThreadNum--;
+                            common.MoveBlockedThreadNum--;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -74,21 +75,20 @@ public class MoveOperation implements Runnable{
                     common.buffer2.add(tmpdata);
                     System.out.println("BUFFER2:"+common.buffer2);//有
                     try {
-
                         Thread.sleep((long) common.moveSpeed * 1000);
-                        Common.buffer2.notify();
+                        common.buffer2.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
                 }
             }else if(firstSevenName.equals("buffer3")) {
-                synchronized (Common.buffer3) {
-                    while (Common.buffer3.size() == Common.Buffer3Size) {
+                synchronized (common.buffer3) {
+                    while (common.buffer3.size() == common.Buffer3Size) {
                         try {
-                            Common.MoveBlockedThreadNum++;
-                            Common.buffer3.wait();
-                            Common.MoveBlockedThreadNum--;
+                            common.MoveBlockedThreadNum++;
+                            common.buffer3.wait();
+                            common.MoveBlockedThreadNum--;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -99,18 +99,18 @@ public class MoveOperation implements Runnable{
                     //buffer3移入
                     buffer3Service.removeInstr(common.buffer3_id,tmpdata);
                     resultService.updatebuffer3result(common.rs_id);
-                    Common.buffer3.add(tmpdata);
+                    common.buffer3.add(tmpdata);
                     System.out.println("BUFFER3:"+common.buffer3);
                     try {
-                        Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
-                        Common.buffer3.notify();
+                        Thread.sleep((long) common.moveSpeed * 500);
+                        common.buffer3.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
                 }
             }
-            while (Common.pause) {
+            while (common.pause) {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {

@@ -2,6 +2,7 @@ package com.os.buffer_backend.service;
 
 import com.os.buffer_backend.model.domain.Buffer1;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.os.buffer_backend.model.request.Work;
 
 import java.util.List;
 
@@ -12,5 +13,6 @@ import java.util.List;
 */
 public interface Buffer1Service extends IService<Buffer1> {
     String removestr(Integer buffer1_id);
-    public List<Buffer1> putBuffer1History();
+    List<Buffer1> putBuffer1History();
+    Work getdata(Integer id,Integer rs_id);
 }
