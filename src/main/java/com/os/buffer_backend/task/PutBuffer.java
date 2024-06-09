@@ -34,7 +34,7 @@ public class PutBuffer implements Runnable{
     }
     @Override
     public void run() {
-        while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
+      //  while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
             //同步代码段
             synchronized (Common.buffer1) {// 确保对缓冲区的同步访问
                 while (Common.buffer1.size()==Common.Buffer1Size) {// 如果缓冲区已满，则等待
@@ -60,7 +60,7 @@ public class PutBuffer implements Runnable{
                     paramService.updateResult1(Common.rs_id);
                     try {
                         // 模拟线程休眠，这里使用了Common.putSpeed来调整休眠时间
-                        Thread.sleep((long) (Math.random() * 100 * (50-Common.putSpeed)));
+                        Thread.sleep((long)  common.putSpeed * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -77,6 +77,6 @@ public class PutBuffer implements Runnable{
             }
 
         }
-    }
+  //  }
 
 }
