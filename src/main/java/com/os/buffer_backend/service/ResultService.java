@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
+
 /**
 * @author HAN
 * @description 针对表【result】的数据库操作Service
@@ -15,4 +16,7 @@ public interface ResultService extends IService<Result> {
     void updatebuffer3result(Integer rs_id);
     public Result getBufferResult(Integer id);
     public List<Result> putResultHistory();
+    List<Integer> getBufferResultNum(Integer buffer1id, Integer buffer2id, Integer buffer3id);
+
+
 }

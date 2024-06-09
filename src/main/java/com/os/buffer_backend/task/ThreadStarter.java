@@ -19,6 +19,7 @@ public class ThreadStarter {
     private Buffer3Service buffer3Service;
     @Autowired
     private ResultService resultService;
+    Common common;
 
 //    @Autowired
 //    private ParamService ps;
@@ -28,8 +29,11 @@ public class ThreadStarter {
         //paramService.register(4,3,3,3,2,2,3,3,20,20,20);
         Param param = paramService.readParmById();
         //paramService.selectBuffer1ByData();
+        common.startTime = System.currentTimeMillis();
         if (param != null) {
             Common common = new Common(param);
+            System.out.println("操作执行时间start: " + common.startTime + " 毫秒");
+
             for (int i = 0; i <param.getPutbuffer1num(); i++) {
                 new Thread(new PutBuffer(common,paramService,resultService)).start();
             }

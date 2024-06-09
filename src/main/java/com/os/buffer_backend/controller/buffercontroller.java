@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.os.buffer_backend.model.request.ResultResponse;
+import java.lang.Integer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -121,5 +123,43 @@ public class buffercontroller {
             common.pause=false;
         }
         return ResponseEntity.ok("ok");
+    }
+    @GetMapping("/total")
+    protected ResponseEntity<ResultResponse> backtototal() {
+        ResultResponse resultResponse=new ResultResponse();
+
+        Common.endTime = System.currentTimeMillis();
+        System.out.println("操作执行时间end: " + common.endTime + " 毫秒");
+        long timeCost = common.endTime - common.startTime;
+        Integer runTimeSeconds = (int) (timeCost / 1000); // 如果需要秒数，可以除以1000
+        if (timeCost <= Integer.MAX_VALUE) {
+            System.out.println("操作执行时间end-start: " + runTimeSeconds + " 秒");
+            resultResponse.setRunTime(runTimeSeconds);
+        } else {
+            // 处理超出 Integer 范围的情况，可能需要使用其他方法或数据结构来存储时间
+        }
+        //Map<String,Object> responseData=new HashMap<>();
+        Result result=resultService.getBufferResult(common.rs_id);
+        resultResponse.setPutBuffer1Num(result.getPutbuffer1num());
+        resultResponse.setGetBuffer1Num(result.getGetbuffer1num());
+        resultResponse.setPutBuffer2Num(result.getPutbuffer2num());
+        resultResponse.setGetBuffer2Num(result.getGetbuffer2num());
+        resultResponse.setPutBuffer3Num(result.getPutbuffer3num());
+        resultResponse.setGetBuffer3Num(result.getGetbuffer3num());
+        Integer buffer1id=common.buffer1_id;
+        Integer buffer2id=common.buffer2_id;
+        Integer buffer3id=common.buffer3_id;
+        List<Integer> bufferNums = resultService.getBufferResultNum(buffer1id, buffer2id, buffer3id);
+        resultResponse.setBuffer1ContentNum(bufferNums.get(0));
+        resultResponse.setBuffer2ContentNum(bufferNums.get(1));
+        resultResponse.setBuffer3ContentNum(bufferNums.get(2));
+        System.out.println("bufferNum:   "+bufferNums);
+        Integer averageNum=(bufferNums.get(0)+bufferNums.get(1)+bufferNums.get(2))/3;
+        resultResponse.setAvgBufferNum(averageNum);
+        resultResponse.getResultResponse(runTimeSeconds,averageNum,result.getPutbuffer1num(),result.getGetbuffer1num(),result.getPutbuffer2num(),result.getGetbuffer2num(),result.getPutbuffer3num(),result.getGetbuffer3num(),bufferNums.get(0),bufferNums.get(1),bufferNums.get(2));
+        System.out.println("resultResponse::"+resultResponse);
+        return ResponseEntity.ok(resultResponse);
+        //todo时间传回去，平均值也传回去，
+
     }
 }
