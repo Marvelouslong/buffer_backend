@@ -36,7 +36,7 @@ public class GetBuffer implements Runnable {
 
     @Override
     public void run() {
-        while (Common.flag) {
+    //    while (Common.flag) {
             System.out.println(Thread.currentThread().getName() + "is working");
             String threadName = Thread.currentThread().getName();
             String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
@@ -87,7 +87,7 @@ public class GetBuffer implements Runnable {
                     common.buffer3.remove(0);
                     System.out.println("(移动后)buffer3缓冲区:" + common.buffer3);
                     try {
-                        Thread.sleep((long) (Math.random() * 100 * (50 - Common.getSpeed)));
+                        Thread.sleep((long)  common.getSpeed * 1000);
                         Common.buffer3.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -105,6 +105,6 @@ public class GetBuffer implements Runnable {
 
 
         }
-    }
+    //}
 }
    

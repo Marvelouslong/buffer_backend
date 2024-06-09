@@ -75,7 +75,7 @@ public class MoveOperation implements Runnable{
                     System.out.println("BUFFER2:"+common.buffer2);//有
                     try {
 
-                        Thread.sleep((long) (Math.random() * 100 * (50-Common.moveSpeed)));
+                        Thread.sleep((long) common.moveSpeed * 1000);
                         Common.buffer2.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
