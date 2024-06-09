@@ -24,7 +24,7 @@ public interface ParamMapper extends BaseMapper<Param> {
     //void insertBuffer1(String message1,String data,Integer contentNum,Integer freeSpaceNum);
     @Select("SELECT * FROM buffer1 WHERE data = "+"?")
     Buffer1 selectByDataValue(String dataValue);
-    @Update("UPDATE buffer1 SET Message = CONCAT(IFNULL(Message, ''), 'move', #{str}),`Data` = CONCAT(IFNULL(`Data`, ''), #{str}),ContentNum=ContentNum+1,FreeSpaceNum=FreeSpaceNum-1 WHERE buffer1_id = #{id};")
+    @Update("UPDATE buffer1 SET Message = CONCAT(IFNULL(Message, ''), ';move', #{str} ),`Data` = CONCAT(IFNULL(`Data`, ''), #{str}),ContentNum=ContentNum+1,FreeSpaceNum=FreeSpaceNum-1 WHERE buffer1_id = #{id};")
 
     //@Update("UPDATE buffer1 SET Message = CONCAT(Message, ';move ', #{str}),`Data`=CONCAT(`Data`, #{str}) WHERE buffer1_id = #{id}")
     void updateBuffer1(@org.apache.ibatis.annotations.Param("str") String str,@org.apache.ibatis.annotations.Param("id") int id);

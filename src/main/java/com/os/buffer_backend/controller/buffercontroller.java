@@ -10,10 +10,8 @@ import com.os.buffer_backend.service.ResultService;
 import com.os.buffer_backend.service.Buffer1Service;
 import com.os.buffer_backend.service.Buffer2Service;
 import com.os.buffer_backend.service.Buffer3Service;
-import com.os.buffer_backend.service.impl.ParamServiceImpl;
 import com.os.buffer_backend.task.Common;
 import com.os.buffer_backend.task.ThreadStarter;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,28 +63,22 @@ public class buffercontroller {
         paramService.register(buffer1size,buffer2size,buffer3size,putbuffer1num,movebuffer2num,movebuffer3num,getbuffer2num,getbuffer3num,putspeed,movespeed,getspeed);
         return ResponseEntity.ok("success");
     }
-    @GetMapping("/result")
-    public Result returnResult(){
-        Result result=resultService.getBufferResult(common.rs_id);
-        System.out.println("result:"+result);
-        return result;
-    }
     @PostMapping("/begin")
     public ResponseEntity<String> begin() {
         threadStarter.startThreads();
         return ResponseEntity.ok("Threads started successfully!!!!");
     }
-
     @GetMapping("/getHistory")
     public ResponseEntity<Map<String, Object>> GetHistory(){
         List<Buffer1> buffer1=buffer1Service.putBuffer1History();
         List<Buffer2> buffer2=buffer2Service.putBuffer2History();
         List<Buffer3> buffer3=buffer3Service.putBuffer3History();
+        List<Result> result=resultService.putResultHistory();
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("buffer1", buffer1);
-        System.out.println(buffer1);
         responseData.put("buffer2", buffer2);
         responseData.put("buffer3", buffer3);
+        responseData.put("res",result);
         return ResponseEntity.ok(responseData);
     }
 }

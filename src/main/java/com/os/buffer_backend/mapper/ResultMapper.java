@@ -5,6 +5,8 @@ import com.os.buffer_backend.model.domain.Result;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
 * @author HAN
 * @description 针对表【result】的数据库操作Mapper
@@ -29,6 +31,8 @@ public interface ResultMapper extends BaseMapper<Result> {
     void buffer3Result(@org.apache.ibatis.annotations.Param("id") Integer id);
     @Select("SELECT * FROM result WHERE rs_id = #{id}")
     Result getResult(@org.apache.ibatis.annotations.Param("id") Integer id);
+    @Select("SELECT * FROM result;")
+    List<Result> getResultHistory();
 
 }
 

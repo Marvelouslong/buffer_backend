@@ -7,6 +7,8 @@ import com.os.buffer_backend.mapper.ResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author HAN
 * @description 针对表【result】的数据库操作Service实现
@@ -29,6 +31,9 @@ public class ResultServiceImpl extends ServiceImpl<ResultMapper, Result>
     public Result getBufferResult(Integer id){
         Result res=resultMapper.getResult(id);
         return res;
+    }
+    public List<Result> putResultHistory(){
+        return resultMapper.getResultHistory();
     }
 
 }
