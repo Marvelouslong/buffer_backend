@@ -36,14 +36,14 @@ public class GetBuffer implements Runnable {
 
     @Override
     public void run() {
-    //    while (Common.flag) {
-        while (common.pause) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        //while (Common.flag) {
+            while (common.pause) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
             System.out.println(Thread.currentThread().getName() + "is working");
             String threadName = Thread.currentThread().getName();
             String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
@@ -126,6 +126,6 @@ public class GetBuffer implements Runnable {
 
 
         }
-    //}
-}
+    }
+//}
    

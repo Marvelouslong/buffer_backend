@@ -34,14 +34,14 @@ public class PutBuffer implements Runnable{
     }
     @Override
     public void run() {
-      //  while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
-        while (common.pause) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        //while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
+            while (common.pause) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
             //同步代码段
             synchronized (common.buffer1) {// 确保对缓冲区的同步访问
                 while (common.buffer1.size()==common.Buffer1Size) {// 如果缓冲区已满，则等待
@@ -66,19 +66,19 @@ public class PutBuffer implements Runnable{
                 common.putInBufferNum++;// 增加已经放入缓冲区的字符数
 
                 if (!common.buffer1.isEmpty()) { // 确保缓冲区中有数据
-                    System.out.println(Common.buffer1);
+                    System.out.println(common.buffer1);
                     String data= randomChar;
-                    int id=Common.buffer1_id;
+                    int id=common.buffer1_id;
                     paramService.updateBuffer1Values(data,id);
                     //int id11=Common.rs_id;
-                    paramService.updateResult1(Common.rs_id);
+                    paramService.updateResult1(common.rs_id);
                     try {
                         // 模拟线程休眠，这里使用了Common.putSpeed来调整休眠时间
                         Thread.sleep((long)  common.putSpeed * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Common.buffer1.notify();
+                    common.buffer1.notify();
                 }
             }
             // 通知可能在等待的线程（如果有的话）
@@ -91,6 +91,7 @@ public class PutBuffer implements Runnable{
             }
 
         }
-  //  }
+    }
+    //}
 
-}
+//}
