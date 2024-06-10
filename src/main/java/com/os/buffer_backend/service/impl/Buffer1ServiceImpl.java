@@ -45,9 +45,11 @@ public class Buffer1ServiceImpl extends ServiceImpl<Buffer1Mapper, Buffer1>
     public Work getdata(Integer id,Integer rs_id) {
         String data=buffer1Mapper.getBuffer1Data(id);
         Integer ContentNum=buffer1Mapper.getBuffer1ContentNum(id);
+        String message1=buffer1Mapper.getBuffer1Message(id);
         Work work1=new Work();
         work1.setData1(data);
         work1.setContentNum(ContentNum);
+        work1.setMessage1(message1);
         Result result=new Result();
         result=resultMapper.getResult(rs_id);
         work1.setGetbuffernum(result.getGetbuffer1num());
