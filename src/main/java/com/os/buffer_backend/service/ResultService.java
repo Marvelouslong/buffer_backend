@@ -17,6 +17,7 @@ public interface ResultService extends IService<Result> {
     public Result getBufferResult(Integer id);
     public List<Result> putResultHistory();
     List<Integer> getBufferResultNum(Integer buffer1id, Integer buffer2id, Integer buffer3id);
+    public void upTimeandAverage(Integer runtime,Integer avgbufferdata,Integer id);
 
 
 }

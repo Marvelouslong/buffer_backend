@@ -33,7 +33,8 @@ public interface ResultMapper extends BaseMapper<Result> {
     Result getResult(@org.apache.ibatis.annotations.Param("id") Integer id);
     @Select("SELECT * FROM result;")
     List<Result> getResultHistory();
-
+    @Update("UPDATE result SET Runtime = #{Runtime}, AvgBufferNum = #{AvgBufferNum} WHERE rs_id = #{rs_id}")
+    void upTimeandAverage(@org.apache.ibatis.annotations.Param("Runtime") Integer Runtime,@org.apache.ibatis.annotations.Param("AvgBufferNum") Integer AvgBufferNum,@org.apache.ibatis.annotations.Param("rs_id") Integer rs_id);
 }
 
 

@@ -128,10 +128,10 @@ public class buffercontroller {
     protected ResponseEntity<ResultResponse> backtototal() {
         ResultResponse resultResponse=new ResultResponse();
 
-        Common.endTime = System.currentTimeMillis();
+        common.endTime = System.currentTimeMillis();
         System.out.println("操作执行时间end: " + common.endTime + " 毫秒");
         long timeCost = common.endTime - common.startTime;
-        Integer runTimeSeconds = (int) (timeCost / 1000); // 如果需要秒数，可以除以1000
+        Integer runTimeSeconds = (int) (timeCost / 1000); // 需要秒数
         if (timeCost <= Integer.MAX_VALUE) {
             System.out.println("操作执行时间end-start: " + runTimeSeconds + " 秒");
             resultResponse.setRunTime(runTimeSeconds);
@@ -158,6 +158,7 @@ public class buffercontroller {
         resultResponse.setAvgBufferNum(averageNum);
         resultResponse.getResultResponse(runTimeSeconds,averageNum,result.getPutbuffer1num(),result.getGetbuffer1num(),result.getPutbuffer2num(),result.getGetbuffer2num(),result.getPutbuffer3num(),result.getGetbuffer3num(),bufferNums.get(0),bufferNums.get(1),bufferNums.get(2));
         System.out.println("resultResponse::"+resultResponse);
+        resultService.upTimeandAverage(runTimeSeconds,averageNum,common.rs_id);
         return ResponseEntity.ok(resultResponse);
         //todo时间传回去，平均值也传回去，
 

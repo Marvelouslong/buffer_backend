@@ -54,7 +54,10 @@ public class ResultServiceImpl extends ServiceImpl<ResultMapper, Result>
         resultData.add(buffer3Mapper.getBuffer3ContentNum(buffer3id));
         return resultData;
     }
+    public void upTimeandAverage(Integer runtime,Integer avgbufferdata,Integer id){
+        resultMapper.upTimeandAverage(runtime,avgbufferdata,id);
 
+    }
 
 
 }
