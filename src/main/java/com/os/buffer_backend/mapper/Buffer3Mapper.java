@@ -38,8 +38,8 @@ public interface Buffer3Mapper extends BaseMapper<Buffer3> {
     String getBuffer3Data(@org.apache.ibatis.annotations.Param("id") Integer id);
     @Select("SELECT ContentNum FROM buffer3 WHERE buffer3_id=#{id}")
     Integer getBuffer3ContentNum(@org.apache.ibatis.annotations.Param("id") Integer id);
-/*    @Select(("SELECT ContentNum FROM buffer3 where buffer3_id=#{id}"))
-    int getBuffer3ContentNum(@org.apache.ibatis.annotations.Param("id") Integer id);*/
+    @Select("SELECT Message FROM buffer3 WHERE buffer3_id=#{id}")
+    String getBuffer3Message(@org.apache.ibatis.annotations.Param("id") Integer id);
 }
 
 
