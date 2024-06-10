@@ -30,6 +30,13 @@ public class MoveOperation implements Runnable{
     @Override
     public void run() {
         //while (Common.flag) {
+        while (common.pause) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         System.out.println(Thread.currentThread().getName() + " is working...");
         String threadName = Thread.currentThread().getName();
         String firstSevenName = threadName.substring(0, Math.min(threadName.length(), 7));
@@ -65,6 +72,13 @@ public class MoveOperation implements Runnable{
                             e.printStackTrace();
                         }
                     }
+                    while (common.pause) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     //buffer1移出
                     tmpdata = buffer1Service.removestr(common.buffer1_id);
                     common.buffer1.remove(0);
@@ -89,6 +103,13 @@ public class MoveOperation implements Runnable{
                             common.MoveBlockedThreadNum++;
                             common.buffer3.wait();
                             common.MoveBlockedThreadNum--;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    while (common.pause) {
+                        try {
+                            Thread.sleep(10);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

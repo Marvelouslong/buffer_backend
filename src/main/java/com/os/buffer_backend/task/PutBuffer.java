@@ -35,6 +35,13 @@ public class PutBuffer implements Runnable{
     @Override
     public void run() {
       //  while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
+        while (common.pause) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
             //同步代码段
             synchronized (common.buffer1) {// 确保对缓冲区的同步访问
                 while (common.buffer1.size()==common.Buffer1Size) {// 如果缓冲区已满，则等待
@@ -42,6 +49,13 @@ public class PutBuffer implements Runnable{
                         common.BlockedThreadNum++;// 增加阻塞线程数
                         common.buffer1.wait();// 等待，直到其他线程通知（notify或notifyAll）
                         common.BlockedThreadNum--;//// 减少阻塞线程数（可选）
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                while (common.pause) {
+                    try {
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
