@@ -36,7 +36,7 @@ public class GetBuffer implements Runnable {
 
     @Override
     public void run() {
-        //while (Common.flag) {
+        while (Common.flag) {
             while (common.pause) {
                 try {
                     Thread.sleep(10);
@@ -55,10 +55,12 @@ public class GetBuffer implements Runnable {
                             common.GetBlockedThreadNum++;
                             common.buffer2.wait();
                             common.GetBlockedThreadNum--;
+                            System.out.println("阻塞在getbuffer2");
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
+                    if (common.flag==false)break;
                     while (common.pause) {
                         try {
                             Thread.sleep(10);
@@ -88,10 +90,12 @@ public class GetBuffer implements Runnable {
                             common.GetBlockedThreadNum++;
                             common.buffer3.wait();
                             common.GetBlockedThreadNum--;
+                            System.out.println("阻塞在getbuffer3");
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
+                    if (common.flag==false)break;
                     while (common.pause) {
                         try {
                             Thread.sleep(10);
@@ -116,6 +120,7 @@ public class GetBuffer implements Runnable {
 
                 }
             }
+            if (common.flag==false)break;
             while (common.pause) {
                 try {
                     Thread.sleep(10);
@@ -127,5 +132,5 @@ public class GetBuffer implements Runnable {
 
         }
     }
-//}
+}
    

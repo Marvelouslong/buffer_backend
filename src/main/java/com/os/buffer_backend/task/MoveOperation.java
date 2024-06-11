@@ -31,7 +31,7 @@ public class MoveOperation implements Runnable {
 
     @Override
     public void run() {
-        //while (Common.flag) {
+        while (Common.flag) {
             while (common.pause) {
                 try {
                     Thread.sleep(10);
@@ -49,6 +49,7 @@ public class MoveOperation implements Runnable {
                         System.out.println("common.MoveBlockedThreadNum is" + common.MoveBlockedThreadNum);
                         common.buffer1.wait();
                         common.MoveBlockedThreadNum--;
+                        System.out.println("阻塞在movebuffer1");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -60,12 +61,13 @@ public class MoveOperation implements Runnable {
                             try {
                                 common.MoveBlockedThreadNum++;
                                 common.buffer2.wait();
-
+                                System.out.println("阻塞在movebuffer2");
                                 common.MoveBlockedThreadNum--;
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
+                        if (common.flag==false)break;
                         while (common.pause) {
                             try {
                                 Thread.sleep(10);
@@ -88,7 +90,13 @@ public class MoveOperation implements Runnable {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        try {
+                            Thread.sleep((long) common.moveSpeed * 1000);
+                            common.buffer1.notify();
 
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 } else if (firstSevenName.equals("buffer3")) {
                     synchronized (common.buffer3) {
@@ -97,10 +105,12 @@ public class MoveOperation implements Runnable {
                                 common.MoveBlockedThreadNum++;
                                 common.buffer3.wait();
                                 common.MoveBlockedThreadNum--;
+                        System.out.println("阻塞在movebuffer3");
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
+                        if (common.flag==false)break;
                         while (common.pause) {
                             try {
                                 Thread.sleep(10);
@@ -122,17 +132,17 @@ public class MoveOperation implements Runnable {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        try {
+                            Thread.sleep((long) common.moveSpeed * 1000);
+                            common.buffer1.notify();
 
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-                try {
-                    Thread.sleep((long) common.moveSpeed * 1000);
-                    common.buffer1.notify();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
+            if (common.flag==false)break;
             while (common.pause) {
                 try {
                     Thread.sleep(10);
@@ -142,6 +152,6 @@ public class MoveOperation implements Runnable {
             }
         }
     }
-//}
+}
 
 

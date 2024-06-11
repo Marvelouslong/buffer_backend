@@ -127,7 +127,7 @@ public class buffercontroller {
     @GetMapping("/total")
     protected ResponseEntity<ResultResponse> backtototal() {
         ResultResponse resultResponse=new ResultResponse();
-
+        common.flag=false;
         common.endTime = System.currentTimeMillis();
         System.out.println("操作执行时间end: " + common.endTime + " 毫秒");
         long timeCost = common.endTime - common.startTime;

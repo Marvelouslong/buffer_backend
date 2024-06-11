@@ -34,7 +34,7 @@ public class PutBuffer implements Runnable{
     }
     @Override
     public void run() {
-        //while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
+        while (Common.flag){// Common.flag是一个全局控制变量，用于停止所有线程
             while (common.pause) {
                 try {
                     Thread.sleep(10);
@@ -49,10 +49,12 @@ public class PutBuffer implements Runnable{
                         common.BlockedThreadNum++;// 增加阻塞线程数
                         common.buffer1.wait();// 等待，直到其他线程通知（notify或notifyAll）
                         common.BlockedThreadNum--;//// 减少阻塞线程数（可选）
+                        System.out.println("阻塞在putbuffer1");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
+                if (common.flag==false)break;
                 while (common.pause) {
                     try {
                         Thread.sleep(10);
@@ -82,6 +84,7 @@ public class PutBuffer implements Runnable{
                 }
             }
             // 通知可能在等待的线程（如果有的话）
+            if (common.flag==false)break;
             while (common.pause) {
                 try {
                     Thread.sleep(10);
@@ -92,6 +95,6 @@ public class PutBuffer implements Runnable{
 
         }
     }
-    //}
+}
 
 //}
